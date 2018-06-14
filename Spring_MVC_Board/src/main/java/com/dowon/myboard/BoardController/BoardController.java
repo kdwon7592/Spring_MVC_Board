@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dowon.myboard.command.BoardCmd;
 import com.dowon.myboard.command.BoardListCmd;
 
-/*
+/**
  * 게시판 url 정보를 통해  Mapping을 하여 각 view에 뿌려주는 역할을 한다.
  */
 
