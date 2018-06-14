@@ -8,8 +8,8 @@
 </head>
 <body>
 	<%
-		String DB_URL = "jdbc:mysql://192.168.3.26:3306/s_board";
-		String DB_USER = "board";
+		String DB_URL = "jdbc:mysql://localhost:3306/s_board";
+		String DB_USER = "dowon";
 		String DB_PASSWORD = "rlaehdnjs123";
 		Connection conn;
 		Statement stmt;
