@@ -18,12 +18,13 @@
 			<td>히트</td>
 		</tr>
 		<c:forEach items="${list}" var="dto">
+		<!-- list 정보 안에 BoardDTO객체들을 dto라고 명명한다. -->
 		<tr>
 			<td>${dto.bId}</td>
 			<td>${dto.bName}</td>
 			<td>
-				<!-- 제목 클릭시 게시물 확인 가능 -->
-				<a href="content_view?bId=${dto.bId}">${dto.bTitle}</a></td>
+				<!-- 제목 클릭시 게시물 확인 가능 bId는 content.jsp로 넘겨준다. -->
+				<a href="content?bId=${dto.bId}">${dto.bTitle}</a></td>
 			<td>${dto.bDate}</td>
 			<td>${dto.bHit}</td>
 		</tr>

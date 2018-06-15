@@ -54,7 +54,7 @@ public class BoardDAO {
 				String bName = resultSet.getString("bName");
 				String bTitle = resultSet.getString("bTitle");
 				String bContent = resultSet.getString("bContent");
-				//bContent는 게시판 목록 불러오기에 필요 없다. 추후 수정 필요.
+				// bContent는 게시판 목록 불러오기에 필요 없다. 추후 수정 필요.
 				int bHit = resultSet.getInt("bHit");
 				Timestamp bDate = resultSet.getTimestamp("bDate");
 
@@ -63,16 +63,88 @@ public class BoardDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(resultSet != null) resultSet.close();
-				if(pstmt != null) pstmt.close();
-				if(connection != null) connection.close();
-			}catch(Exception e) {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return dtos;
 	}
-	
+
+	public BoardDTO contentView(int BoardId) {
+
+		BoardDTO dto = new BoardDTO();
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "select * from b_board where bId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, BoardId);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				// while문으로 resultSet.next를 하지 않으면 sql exception 발생
+				int bId = resultSet.getInt("bId");
+				String bName = resultSet.getString("bName");
+				String bTitle = resultSet.getString("bTitle");
+				String bContent = resultSet.getString("bContent");
+				int bHit = resultSet.getInt("bHit");
+				Timestamp bDate = resultSet.getTimestamp("bDate");
+
+				dto = new BoardDTO(bId, bName, bTitle, bContent, bHit, bDate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+
+	public void write(String bName, String bTitle, String bContent) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "insert into b_board(bName, bTitle, bContent) values (?, ?, ?)";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, bName);
+			pstmt.setString(2, bTitle);
+			pstmt.setString(3, bContent);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
 }
