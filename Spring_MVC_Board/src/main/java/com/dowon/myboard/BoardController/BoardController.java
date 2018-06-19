@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dowon.myboard.command.BoardCmd;
 import com.dowon.myboard.command.BoardContentCmd;
+import com.dowon.myboard.command.BoardDeleteCmd;
 import com.dowon.myboard.command.BoardListCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
 
@@ -63,6 +64,16 @@ public class BoardController {
 		boardCmd.execute(model);
 		
 		return "redirect:list";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		boardCmd = new BoardDeleteCmd();
+		boardCmd.execute(model);
+		
+		return "redirect:list";
+		
 	}
 	
 	@RequestMapping("/dbtest")

@@ -35,7 +35,6 @@
 				<td><input type="submit" value="수정">
 				<td><a href="list">목록보기</a></td>
 				<td><a href="delete?bId=${content.bId}">삭제</a></td>
-				<td><a href="reply_view?bId=${content.bId}">답변</a></td>
 				</td>
 			</tr>
 		</form>
