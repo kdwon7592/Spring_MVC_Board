@@ -146,19 +146,19 @@ public class BoardDAO {
 			}
 		}
 	}
-	
+
 	public void delete(int bId) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			connection = dataSource.getConnection();
 			String query = "delete from b_board where bId = ?";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, bId);
-			
+
 			pstmt.executeUpdate();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -172,4 +172,30 @@ public class BoardDAO {
 		}
 	}
 
+	public void update(int bId, String bContent, String bTitle) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "update b_board set bContent = ?, bTitle = ? where bId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, bContent);
+			pstmt.setString(2, bTitle);
+			pstmt.setInt(3, bId);
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 }

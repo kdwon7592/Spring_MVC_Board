@@ -5,11 +5,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dowon.myboard.command.BoardCmd;
 import com.dowon.myboard.command.BoardContentCmd;
 import com.dowon.myboard.command.BoardDeleteCmd;
 import com.dowon.myboard.command.BoardListCmd;
+import com.dowon.myboard.command.BoardUpdateActionCmd;
+import com.dowon.myboard.command.BoardUpdateCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
 
 /**
@@ -74,6 +77,28 @@ public class BoardController {
 		
 		return "redirect:list";
 		
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/updateAction")
+	public String updateAction(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		
+		boardCmd = new BoardUpdateActionCmd();
+		boardCmd.execute(model);
+				
+		return "redirect:list";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/update")
+	public String update(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		
+		boardCmd = new BoardUpdateCmd();
+		boardCmd.execute(model);
+				
+		return "update";
 	}
 	
 	@RequestMapping("/dbtest")

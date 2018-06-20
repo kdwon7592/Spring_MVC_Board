@@ -9,31 +9,32 @@
 <body>
 
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form action="update" method="post">
-			<input type="hidden" name="bId" value="${content.bId}">
+		<form action="updateAction" method="post">
+			<input type="hidden" name="bId" value="${update.bId}">
 			<thead>
 				<td>번호</td>
-				<td>${content.bId}</td>
+				<td>${update.bId}</td>
 			</thead>
 			<thead>
 				<td>이름</td>
-				<td>${content.bName}</td>
+				<td>${update.bName}</td>
 			</thead>
 			<thead>
 				<td>제목</td>
-				<td>${content.bTitle}</td>
+				<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
 			</thead>
 			<thead>
 				<td>히트</td>
-				<td>${content.bHit}</td>
+				<td>${update.bHit}</td>
 			</thead>
 			<tbody>
 				<td>내용</td>
-				<td>${content.bContent}</td>
+				<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
 			</tbody>
 			<tr>
 				<td><input type="submit" value="수정">
-				<td><a href="list">목록보기</a></td>
+				<td><a href="content?bId">취소</a></td>
+				<td><a href="delete?bId=${update.bId}">삭제</a></td>
 				</td>
 			</tr>
 		</form>
