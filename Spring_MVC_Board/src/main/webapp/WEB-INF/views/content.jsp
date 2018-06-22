@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,6 +36,43 @@
 				<td><input type="submit" value="수정">
 				<td><a href="list">목록보기</a></td>
 				</td>
+			</tr>
+		</form>
+		<tr>
+			<td colspan="2">&nbsp</td>
+		</tr>
+		<tr>
+			<td colspan="2">댓글</td>
+		</tr>
+		<c:forEach items="${reply}" var="dto">
+			<tr>
+				<td>번호</td>
+				<td>${dto.rId}</td>
+			<tr>
+			<tr>
+				<td>작성자</td>
+				<td>${dto.rName}</td>
+			<tr>
+			<tr>
+				<td>댓글</td>
+				<td>${dto.rComment}</td>
+			</tr>
+		</c:forEach>
+
+		<tr>
+			<td colspan="2">&nbsp</td>
+		</tr>
+		<form action="reply_write" method="post">
+			<tr>
+				<td>이름</td>
+				<td>덧글</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="bName" size="20"></td>
+				<td><input type="text" name="bName" size="150"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="입력"></td>
 			</tr>
 		</form>
 	</table>
