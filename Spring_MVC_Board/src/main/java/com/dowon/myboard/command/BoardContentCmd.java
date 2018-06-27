@@ -11,7 +11,7 @@ import com.dowon.myboard.dao.BoardDAO;
 import com.dowon.myboard.dto.BoardDTO;
 import com.dowon.myboard.dto.ReplyDTO;
 
-public class BoardContentCmd implements BoardCmd {
+public class BoardContentCmd implements BoardCmd<Model> {
 
 	@Override
 	public void execute(Model model) {

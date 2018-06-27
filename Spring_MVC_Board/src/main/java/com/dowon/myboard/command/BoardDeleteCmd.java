@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.dowon.myboard.dao.BoardDAO;
 
-public class BoardDeleteCmd implements BoardCmd {
+public class BoardDeleteCmd implements BoardCmd<Model> {
 
 	@Override
 	public void execute(Model model) {

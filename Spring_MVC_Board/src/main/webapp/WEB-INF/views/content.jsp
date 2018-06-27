@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,6 +38,28 @@
 				</td>
 			</tr>
 		</form>
+		
+		
+		<!-- 댓글 구현 하기 -->
+		<!-- div class="container">
+			<form id="commentForm" name="commentForm" method="post">
+				<div>
+					<div>
+						<span><strong>Comments</strong></span>
+					</div>
+					<div>
+						<table class="table">
+							<tr>
+								<td>
+									<textarea style="width:1000px" rows="3" cols="30" id="comment" name="comment" placeholder="댓글 입력,,"><
+									</textarea>
+							</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</form>
+		</div -->
 		<tr>
 			<td colspan="2">&nbsp</td>
 		</tr>
@@ -45,6 +67,7 @@
 			<td colspan="2">댓글</td>
 		</tr>
 		<c:forEach items="${reply}" var="dto">
+
 			<tr>
 				<td>번호</td>
 				<td>${dto.rId}</td>

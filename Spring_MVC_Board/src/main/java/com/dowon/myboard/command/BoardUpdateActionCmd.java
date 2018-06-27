@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.dowon.myboard.dao.BoardDAO;
 
-public class BoardUpdateActionCmd implements BoardCmd {
+public class BoardUpdateActionCmd implements BoardCmd<Model> {
 
 	@Override
 	public void execute(Model model) {
