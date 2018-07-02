@@ -11,10 +11,10 @@
 <body>
   <div>
  	<div>
- 		test1 = ${test1.value}
+ 		test1 = ${test1}
  	</div>
  	<div>
- 		test2 = ${test2.value}
+ 		test2 = ${test2}
  	</div>
  </div>
 </body>

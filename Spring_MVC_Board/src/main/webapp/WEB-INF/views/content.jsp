@@ -5,100 +5,82 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 </head>
+<script>
+	$(function() {
+		$('#reply_write').click(function() {
+			var allData = $("form[name=reply_form]").serialize() + "&bId=" + ${content.bId};
+			$.ajax({
+				type : "POST",
+				dataType : "json",
+				//dataType : 'text',
+				data : allData,
+				url : "http://localhost:8080/myboard/reply_write",
+				success : function(data) {
+					alert("전송 완료!");
+					console.log(data);
+				}
+			});
+		});
+	});
+</script>
 <body>
-
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
 		<form action="update" method="post">
 			<input type="hidden" name="bId" value="${content.bId}">
 			<thead>
 				<td>번호</td>
-				<td>${content.bId}</td>
-			</thead>
-			<thead>
 				<td>이름</td>
-				<td>${content.bName}</td>
-			</thead>
-			<thead>
 				<td>제목</td>
-				<td>${content.bTitle}</td>
-			</thead>
-			<thead>
-				<td>히트</td>
-				<td>${content.bHit}</td>
+				<td>내용</td>
+				<td>조회수</td>
 			</thead>
 			<tbody>
-				<td>내용</td>
+				<td>${content.bId}</td>
+				<td>${content.bName}</td>
+				<td>${content.bTitle}</td>
 				<td>${content.bContent}</td>
-			</tbody>
-			<tr>
-				<td><input type="submit" value="수정">
+				<td>${content.bHit}</td>
+				<td><input type="submit" id="update" value="수정">
 				<td><a href="list">목록보기</a></td>
-				</td>
-			</tr>
+			</tbody>
 		</form>
-		
-		
-		<!-- 댓글 구현 하기 -->
-		<!-- div class="container">
-			<form id="commentForm" name="commentForm" method="post">
-				<div>
-					<div>
-						<span><strong>Comments</strong></span>
-					</div>
-					<div>
-						<table class="table">
-							<tr>
-								<td>
-									<textarea style="width:1000px" rows="3" cols="30" id="comment" name="comment" placeholder="댓글 입력,,"><
-									</textarea>
-							</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</form>
-		</div -->
+	</table>
+	<table width="500" cellpadding="0" cellspacing="0" border="1">
 		<tr>
-			<td colspan="2">&nbsp</td>
+			<td colspan="3">&nbsp</td>
 		</tr>
 		<tr>
-			<td colspan="2">댓글</td>
+			<td colspan="3">댓글</td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td>내용</td>
 		</tr>
 		<c:forEach items="${reply}" var="dto">
-
 			<tr>
-				<td>번호</td>
-				<td>${dto.rId}</td>
-			<tr>
-			<tr>
-				<td>작성자</td>
 				<td>${dto.rName}</td>
-			<tr>
-			<tr>
-				<td>댓글</td>
 				<td>${dto.rComment}</td>
-			</tr>
+				<td><input type="submit" id="reply_update" value="수정"></td>
+			<tr>
 		</c:forEach>
 
 		<tr>
-			<td colspan="2">&nbsp</td>
+			<td colspan="3">&nbsp</td>
 		</tr>
-		<form action="reply_write" method="post">
+		<form name="reply_form">
 			<tr>
 				<td>이름</td>
 				<td>덧글</td>
 			</tr>
 			<tr>
-				<td><input type="text" name="bName" size="20"></td>
-				<td><input type="text" name="bName" size="150"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="입력"></td>
+				<td><input type="text" name="rName" id="rName"></td>
+				<td><input type="text" name="rComment" id="rComment"></td>
+				<td><button id="reply_write" type="submit">입력</button></td>
 			</tr>
 		</form>
 	</table>
-
 </body>
 </html>

@@ -200,44 +200,5 @@ public class BoardDAO {
 		}
 	}
 	
-	public ArrayList<ReplyDTO> replyView(int boardId) {
-		ArrayList<ReplyDTO> dtos = new ArrayList<ReplyDTO>();
-		
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-		ResultSet resultSet = null;
 
-		try {
-			connection = dataSource.getConnection();
-			String query = "select * from b_reply where bId = ?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, boardId);
-			resultSet = pstmt.executeQuery();
-			while (resultSet.next()) {
-				// while문으로 resultSet.next를 하지 않으면 sql exception 발생
-				int rId = resultSet.getInt("rId");
-				int bId = resultSet.getInt("bId");
-				String rName = resultSet.getString("rName");
-				String rComment = resultSet.getString("rComment");
-				Timestamp rDate = resultSet.getTimestamp("rDate");
-
-				ReplyDTO dto = new ReplyDTO(rId, bId, rName, rComment, rDate);
-				dtos.add(dto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (resultSet != null)
-					resultSet.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (connection != null)
-					connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return dtos;
-	}
 }

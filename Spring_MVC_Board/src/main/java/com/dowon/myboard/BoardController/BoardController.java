@@ -16,6 +16,7 @@ import com.dowon.myboard.command.BoardListCmd;
 import com.dowon.myboard.command.BoardUpdateActionCmd;
 import com.dowon.myboard.command.BoardUpdateCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
+import com.dowon.myboard.command.ReplyWriteCmd;
 import com.dowon.myboard.command.TestAjaxCmd;
 
 /**
@@ -31,21 +32,39 @@ public class BoardController {
 	public String test(Model model) {
 		return "test";
 	}
-	
+
 	@RequestMapping("/test2")
 	public String test2(Model model) {
 		return "test2";
 	}
-	
-	@RequestMapping("/ajax")
+
+	@RequestMapping(value = "/reply_write")
 	@ResponseBody
-	public String ajax(HttpServletRequest request, ModelMap modelMap) throws Exception {
+	public String reply_write(HttpServletRequest request, ModelMap modelMap) throws Exception {
 		modelMap.addAttribute("request", request);
-		
-		boardCmd = new TestAjaxCmd();
+		String rName = request.getParameter("rName");
+		String rComment = request.getParameter("rComment");
+		String bId = request.getParameter("bId");
+
+		System.out.println("Controller : " + rName + " " + rComment + " " + bId);
+
+		boardCmd = new ReplyWriteCmd();
 		boardCmd.execute(modelMap);
 		
-		return "test2";
+		return "content";
+	}
+
+	@ResponseBody
+	@RequestMapping("/ajax")
+	public String ajax(HttpServletRequest request, ModelMap modelMap) throws Exception {
+		modelMap.addAttribute("request", request);
+
+		boardCmd = new TestAjaxCmd();
+		boardCmd.execute(modelMap);
+
+		System.out.println("test1 : " + modelMap.get("test1") + ", test2 : " + modelMap.get("test2") + "\n\n\n");
+
+		return "test";
 	}
 
 	@RequestMapping("/list") // 게시판 정보를 뿌려준다.
@@ -62,7 +81,6 @@ public class BoardController {
 	@RequestMapping("/content")
 	public String content(HttpServletRequest request, Model model) {
 		System.out.println("content");
-
 		model.addAttribute("request", request);
 
 		boardCmd = new BoardContentCmd();

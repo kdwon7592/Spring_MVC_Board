@@ -23,8 +23,8 @@
 				<td>${dto.bId}</td>
 				<td>${dto.bName}</td>
 				<td>
-					<!-- 제목 클릭시 게시물 확인 가능 bId는 content.jsp로 넘겨준다. --> <a
-					href="content?bId=${dto.bId}">${dto.bTitle}</a>
+					<!-- 제목 클릭시 게시물 확인 가능 bId는 content.jsp로 넘겨준다. --> 
+					<a href="content?bId=${dto.bId}">${dto.bTitle}</a>
 				</td>
 				<td>${dto.bDate}</td>
 				<td>${dto.bHit}</td>

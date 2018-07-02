@@ -18,6 +18,8 @@
     data : allData,
     url : "http://localhost:8080/myboard/ajax",
     success : function(data) {
+    	alert("전송 완료!");
+    	console.log(data);
     }
    });
   });
@@ -25,6 +27,14 @@
 </script>
 </head>
 <body>
- <a href="test2"><button  id="AjaxStart">Ajax Start</button></a>
+ <button id="AjaxStart">Ajax Start</button>
+  <div>
+ 	<div>
+ 		test1 = ${test1}
+ 	</div>
+ 	<div>
+ 		test2 = ${test2}
+ 	</div>
+ </div>
 </body>
 </html>

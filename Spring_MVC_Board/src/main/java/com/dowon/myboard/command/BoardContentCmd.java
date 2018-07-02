@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.dowon.myboard.dao.BoardDAO;
+import com.dowon.myboard.dao.ReplyDAO;
 import com.dowon.myboard.dto.BoardDTO;
 import com.dowon.myboard.dto.ReplyDTO;
 
@@ -25,9 +26,9 @@ public class BoardContentCmd implements BoardCmd<Model> {
 		
 		
 		BoardDAO dao = new BoardDAO();
+		ReplyDAO rDAO = new ReplyDAO();
 		BoardDTO dto = dao.contentView(Integer.parseInt(bId));
-		ArrayList<ReplyDTO>dtos = dao.replyView(Integer.parseInt(bId)); //list정보를 받아 list.jsp에 뿌려준다.
-		System.out.println("dto: " + dtos.get(0).getrComment());
+		ArrayList<ReplyDTO>dtos = rDAO.replyView(Integer.parseInt(bId)); //list정보를 받아 list.jsp에 뿌려준다.
 		
 		model.addAttribute("reply", dtos);
 		model.addAttribute("content", dto);		
