@@ -30,6 +30,8 @@ public class BoardContentCmd implements BoardCmd<Model> {
 		BoardDTO dto = dao.contentView(Integer.parseInt(bId));
 		ArrayList<ReplyDTO>dtos = rDAO.replyView(Integer.parseInt(bId)); //list정보를 받아 list.jsp에 뿌려준다.
 		
+		dao.increaseHit(Integer.parseInt(bId));
+		
 		model.addAttribute("reply", dtos);
 		model.addAttribute("content", dto);		
 	}

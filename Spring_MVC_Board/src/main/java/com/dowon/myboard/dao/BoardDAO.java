@@ -200,5 +200,30 @@ public class BoardDAO {
 		}
 	}
 	
+	public void increaseHit(int bId) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		try {
+			connection = dataSource.getConnection();
+			String query = "update b_board set bHit = bHit + 1 where bId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
 
 }

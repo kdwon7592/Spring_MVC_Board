@@ -15,9 +15,9 @@ public class BoardDTO {
 	Timestamp bDate; // Current Time
 
 	public BoardDTO() {
-		
+
 	}
-	
+
 	public BoardDTO(int bId, String bName, String bTitle, String bContent, int bHit, Timestamp bDate) {
 		this.bId = bId;
 		this.bName = bName;
@@ -73,5 +73,11 @@ public class BoardDTO {
 
 	public void setbDate(Timestamp bDate) {
 		this.bDate = bDate;
+	}
+
+	@Override
+	public String toString() {
+		return "bId : " + this.bId + "bName : " + this.bName + "bTitle : " + this.bTitle + "bContent : " + this.bContent
+				+ "bHit : " + this.bHit + "bDate : " + this.bDate;
 	}
 }
