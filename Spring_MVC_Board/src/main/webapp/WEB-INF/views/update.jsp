@@ -33,7 +33,7 @@
 			</tbody>
 			<tr>
 				<td><input type="submit" value="수정">
-				<td><a href="content?bId">취소</a></td>
+				<td><a href="content?bId=${update.bId}">취소</a></td>
 				<td><a href="delete?bId=${update.bId}">삭제</a></td>
 				</td>
 			</tr>

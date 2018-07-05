@@ -13,9 +13,8 @@ public class ReplyWriteCmd implements BoardCmd<ModelMap> {
 	@Override
 	public void execute(ModelMap model) {
 		// TODO Auto-generated method stub
-		Map<String, Object> json = model;
 
-		HttpServletRequest request = (HttpServletRequest) json.get("request");
+		HttpServletRequest request = (HttpServletRequest) model.get("request");
 
 		String rName = request.getParameter("rName");
 		String rComment = request.getParameter("rComment");

@@ -23,7 +23,7 @@ public class BoardContentCmd implements BoardCmd<Model> {
 		
 		String bId = request.getParameter("bId");
 		//가져온 request로부터 파라미터를 얻는다. list.jsp에서 얻어오는 bId정보.
-		
+		System.out.println("Content bId = " + bId);
 		
 		BoardDAO dao = new BoardDAO();
 		ReplyDAO rDAO = new ReplyDAO();

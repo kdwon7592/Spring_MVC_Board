@@ -9,26 +9,33 @@
 <title>Insert title here</title>
 </head>
 <script>
-	$(function() {
-		$('#reply_write').click(function() {
-			var allData = $("form[name=reply_form]").serialize() + "&bId=" + ${content.bId};
-			$.ajax({
-				type : "POST",
-				dataType : "json",
-				//dataType : 'text',
-				data : allData,
-				url : "http://localhost:8080/myboard/reply_write",
-				success : function(data) {
-					alert("전송 완료!");
-					console.log(data);
-				}
-			});
-		});
-	});
+	/* 
+	 // Ajax 쓸때... 
+	 $(function() {
+	 $('#reply_write').click(function() {
+	 var allData = $("form[name=reply_form]").serialize() + "&bId=" + $
+	 {
+	 content.bId
+	 }
+	 ;
+	 $.ajax({
+	 type : "POST",
+	 dataType : "json",
+	 //dataType : 'text',
+	 data : allData,
+	 url : "http://localhost:8080/myboard/reply_write",
+	 success : function(data) {
+	 alert("전송 완료!");
+	 console.log(data);
+	 }
+	 });
+	 });
+	 });
+	 */
 </script>
 <body>
-	<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form action="update" method="post">
+	<form action="update" method="post">
+		<table width="500" cellpadding="0" cellspacing="0" border="1">
 			<input type="hidden" name="bId" value="${content.bId}">
 			<thead>
 				<td>번호</td>
@@ -46,8 +53,8 @@
 				<td><input type="submit" id="update" value="수정">
 				<td><a href="list">목록보기</a></td>
 			</tbody>
-		</form>
-	</table>
+		</table>
+	</form>
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
 		<tr>
 			<td colspan="3">&nbsp</td>
@@ -60,26 +67,36 @@
 			<td>내용</td>
 		</tr>
 		<c:forEach items="${reply}" var="dto">
+			<form action="reply_update" method="post">
+				<input type="hidden" name="rId" value="${dto.rId}">
 			<tr>
 				<td>${dto.rName}</td>
 				<td>${dto.rComment}</td>
 				<td><input type="submit" id="reply_update" value="수정"></td>
 			<tr>
+				</form>
 		</c:forEach>
+	</table>
 
+	<table width="500" cellpadding="0" cellspacing="0" border="1">
+		<form action="reply_write" method="post">
 		<tr>
 			<td colspan="3">&nbsp</td>
 		</tr>
-		<form name="reply_form">
-			<tr>
-				<td>이름</td>
-				<td>덧글</td>
-			</tr>
-			<tr>
-				<td><input type="text" name="rName" id="rName"></td>
-				<td><input type="text" name="rComment" id="rComment"></td>
-				<td><button id="reply_write" type="submit">입력</button></td>
-			</tr>
+		<!-- AJAX 씅떄..... -->
+		<!-- form name="reply_form"-->
+		<input type="hidden" name="bId" value="${content.bId}">
+		<input type="hidden" name="rId" value="${dto.rId}">
+
+		<tr>
+			<td>이름</td>
+			<td>덧글</td>
+		</tr>
+		<tr>
+			<td><input type="text" name="rName" id="rName"></td>
+			<td><input type="text" name="rComment" id="rComment"></td>
+			<td><input type="submit" id="reply_write" value="입력"></td>
+		</tr>
 		</form>
 	</table>
 </body>

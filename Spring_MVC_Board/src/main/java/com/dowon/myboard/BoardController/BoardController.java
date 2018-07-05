@@ -1,5 +1,7 @@
 package com.dowon.myboard.BoardController;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,9 @@ import com.dowon.myboard.command.BoardCmd;
 import com.dowon.myboard.command.BoardContentCmd;
 import com.dowon.myboard.command.BoardDeleteCmd;
 import com.dowon.myboard.command.BoardListCmd;
+import com.dowon.myboard.command.BoardReplyDeleteCmd;
+import com.dowon.myboard.command.BoardReplyUpdateActionCmd;
+import com.dowon.myboard.command.BoardReplyUpdateCmd;
 import com.dowon.myboard.command.BoardUpdateActionCmd;
 import com.dowon.myboard.command.BoardUpdateCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
@@ -38,20 +43,16 @@ public class BoardController {
 		return "test2";
 	}
 
-	@RequestMapping(value = "/reply_write")
-	@ResponseBody
+	@RequestMapping(value = "/reply_write", method = RequestMethod.POST )
 	public String reply_write(HttpServletRequest request, ModelMap modelMap) throws Exception {
 		modelMap.addAttribute("request", request);
-		String rName = request.getParameter("rName");
-		String rComment = request.getParameter("rComment");
+
 		String bId = request.getParameter("bId");
-
-		System.out.println("Controller : " + rName + " " + rComment + " " + bId);
-
+		
 		boardCmd = new ReplyWriteCmd();
 		boardCmd.execute(modelMap);
 		
-		return "content";
+		return "redirect:content?bId="+bId;
 	}
 
 	@ResponseBody
@@ -144,7 +145,43 @@ public class BoardController {
 
 		return "update";
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/reply_updateAction")
+	public String reply_updateAction(HttpServletRequest request, Model model) {
 
+		model.addAttribute("request", request);
+		String bId = request.getParameter("bId");
+		boardCmd = new BoardReplyUpdateActionCmd();
+		boardCmd.execute(model);
+
+		return "redirect:content?bId="+bId;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/reply_update")
+	public String reply_update(HttpServletRequest request, Model model) {
+
+		model.addAttribute("request", request);
+
+		boardCmd = new BoardReplyUpdateCmd();
+		boardCmd.execute(model);
+
+		return "reply_update";
+	}
+	
+	@RequestMapping("/reply_delete")
+	public String reply_delete(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		
+		String bId = request.getParameter("bId");
+		
+		System.out.println("bid = " + bId);
+		
+		boardCmd = new BoardReplyDeleteCmd();
+		boardCmd.execute(model);
+
+		return "redirect:content?bId="+bId;
+
+	}
 	@RequestMapping("/dbtest")
 	public String dbtest() {
 		System.out.println("dbtest()");
