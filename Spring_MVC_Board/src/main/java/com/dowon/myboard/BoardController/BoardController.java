@@ -1,7 +1,5 @@
 package com.dowon.myboard.BoardController;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +19,8 @@ import com.dowon.myboard.command.BoardReplyUpdateCmd;
 import com.dowon.myboard.command.BoardUpdateActionCmd;
 import com.dowon.myboard.command.BoardUpdateCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
+import com.dowon.myboard.command.JoinActionCmd;
+import com.dowon.myboard.command.LoginActionCmd;
 import com.dowon.myboard.command.ReplyWriteCmd;
 import com.dowon.myboard.command.TestAjaxCmd;
 
@@ -44,7 +44,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/reply_write", method = RequestMethod.POST )
-	public String reply_write(HttpServletRequest request, ModelMap modelMap) throws Exception {
+	public String reply_write(HttpServletRequest request, ModelMap modelMap) {
 		modelMap.addAttribute("request", request);
 
 		String bId = request.getParameter("bId");
@@ -182,6 +182,39 @@ public class BoardController {
 		return "redirect:content?bId="+bId;
 
 	}
+	
+	@RequestMapping("/join")
+	public String join(HttpServletRequest reqeust, Model model) {
+		
+		return "join";
+	}
+	
+	@RequestMapping("/joinAction")
+	public String joinAction(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		boardCmd = new JoinActionCmd();
+		boardCmd.execute(model);
+		
+		return "list";
+	}
+	
+	@RequestMapping("/login")
+	public String login(HttpServletRequest reqeust, Model model) {
+		
+		return "login";
+	}
+	
+	@RequestMapping("/loginAction")
+	public String loginAction(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		boardCmd = new LoginActionCmd();
+		boardCmd.execute(model);
+		
+		return "list";
+	}
+	
 	@RequestMapping("/dbtest")
 	public String dbtest() {
 		System.out.println("dbtest()");

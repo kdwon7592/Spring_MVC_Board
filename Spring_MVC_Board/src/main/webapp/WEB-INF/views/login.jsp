@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<title>JSP 웹 게시핀</title>
 </head>
 <body>
 
@@ -38,25 +40,19 @@
 	</nav>
 
 
-	<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form action="reply_updateAction" method="post">
-			<input type="hidden" name="rId" value="${reply_update.rId}">
-			<input type="hidden" name="bId" value="${reply_update.bId}">
-
-			<thead>
-				<td>작성자</td>
-				<td colspan="4">내용</td>
-			</thead>
-			<tbody>
-				<td>${reply_update.rName}</td>
-				<td><textarea rows="3" name="rComment">${reply_update.rComment}</textarea></td>
-				<td><input type="submit" value="수정">
-				<td><a href="content?bId=${reply_update.bId}">취소</a></td>
-				<td><a
-					href="reply_delete?rId=${reply_update.rId}&bId=${reply_update.bId}">삭제</a></td>
-			</tbody>
-		</form>
-	</table>
-
+	<div class="container">
+			<div class="jumbotron" style="padding-top: 20px;">
+				<form method="post" action="loginAction">
+					<h3 style="text-align: center;">로그인화면</h3>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="아이디" name="userId" maxlength ="20">
+						<input type="text" class="form-control" placeholder="비밀번호" name="userPassword" maxlength ="20">
+					</div>
+					<input type="submit" class="btn btn-primary form-control" value="로그인">
+				</form>
+			</div>
+		</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>

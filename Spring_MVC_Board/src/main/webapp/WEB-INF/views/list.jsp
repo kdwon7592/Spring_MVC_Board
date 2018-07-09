@@ -8,6 +8,36 @@
 <title>list</title>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+			aria-expended="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="list">스프링 웹 게시판</a>
+		</div>
+		<div class="colapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="list">메인</a></li>
+				<li><a href="list">게시판</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expended="false">접속하기<span class="caret"></span></a>
+					<ul class="dropdown-menu"> 
+						<li class="active"><a href='login'>로그인</a></li>
+						<li><a href="join">회원가입</a></li>
+					</ul>
+			</ul>
+		</div>
+	</nav>
+
+
 
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
 		<tr>
@@ -23,8 +53,8 @@
 				<td>${dto.bId}</td>
 				<td>${dto.bName}</td>
 				<td>
-					<!-- 제목 클릭시 게시물 확인 가능 bId는 content.jsp로 넘겨준다. --> 
-					<a href="content?bId=${dto.bId}">${dto.bTitle}</a>
+					<!-- 제목 클릭시 게시물 확인 가능 bId는 content.jsp로 넘겨준다. --> <a
+					href="content?bId=${dto.bId}">${dto.bTitle}</a>
 				</td>
 				<td>${dto.bDate}</td>
 				<td>${dto.bHit}</td>
@@ -32,6 +62,12 @@
 		</c:forEach>
 		<tr>
 			<td colspan="5"><a href="write_view">글작성</a></td>
+		</tr>
+		<tr>
+			<td colspan="5"><a href="join">회원가입</a></td>
+		</tr>
+		<tr>
+			<td colspan="5"><a href="login">로그인</a></td>
 		</tr>
 		<tr>
 			<td colspan="5"><a href="dbtest">DB 연결테스트</a></td>

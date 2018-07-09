@@ -6,5 +6,4 @@ import org.springframework.ui.ModelMap;
 public interface BoardCmd<T> {
 
 	public void execute(T model);
-	
 }
