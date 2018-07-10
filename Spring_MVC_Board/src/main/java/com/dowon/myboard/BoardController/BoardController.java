@@ -1,5 +1,7 @@
 package com.dowon.myboard.BoardController;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.runner.Request;
@@ -47,7 +49,13 @@ public class BoardController {
 	@RequestMapping(value = "/reply_write", method = RequestMethod.POST )
 	public String reply_write(HttpServletRequest request, ModelMap modelMap) {
 		modelMap.addAttribute("request", request);
-
+		
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String bId = request.getParameter("bId");
 		
 		boardCmd = new ReplyWriteCmd();

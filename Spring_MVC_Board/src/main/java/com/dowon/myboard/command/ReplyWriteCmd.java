@@ -15,6 +15,9 @@ public class ReplyWriteCmd implements BoardCmd<ModelMap> {
 		// TODO Auto-generated method stub
 
 		HttpServletRequest request = (HttpServletRequest) model.get("request");
+		
+		
+		System.out.println("확인!!!!!!" + request.getParameter("rComment"));
 
 		String rName = request.getParameter("rName");
 		String rComment = request.getParameter("rComment");
