@@ -51,6 +51,10 @@ public class BoardController {
 		modelMap.addAttribute("request", request);
 		
 		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
