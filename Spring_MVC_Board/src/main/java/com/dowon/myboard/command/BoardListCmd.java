@@ -14,7 +14,6 @@ public class BoardListCmd implements BoardCmd<Model> {
 
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO>dtos = dao.list(); //list정보를 받아 list.jsp에 뿌려준다.
-		System.out.println(dtos.get(0));
 		model.addAttribute("list", dtos);
 	}
 }

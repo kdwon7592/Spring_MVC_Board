@@ -3,12 +3,11 @@ package com.dowon.myboard.command;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
 import com.dowon.myboard.dao.UserDAO;
-import com.dowon.myboard.dto.UserDTO;
 
 public class LoginActionCmd implements BoardCmd<Model>{
 	
@@ -27,6 +26,7 @@ public class LoginActionCmd implements BoardCmd<Model>{
 		//System.out.println(user.getUserId() + user.getUserPassword());
 		if(result == 1){
 			System.out.println("로그인 성공");
+			request.getSession(true).setAttribute("User", userId);;
 //			session.setAttribute("userId", user.getUserId());
 //			PrintWriter script = response.getWriter();
 //			script.println("<script>");

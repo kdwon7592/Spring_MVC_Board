@@ -8,6 +8,12 @@
 </head>
 <body>
 
+	<%
+		String userId = null;
+		if (session.getAttribute("User") != null) {
+			userId = (String) session.getAttribute("User");
+		}
+	%>
 	<nav class="navbar navbar-default">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed"
@@ -28,8 +34,19 @@
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expended="false">접속하기<span class="caret"></span></a>
 				<ul class="dropdown-menu">
+					<%
+						if (userId == null) {
+					%>
 					<li class="active"><a href='login'>로그인</a></li>
 					<li><a href="join">회원가입</a></li>
+
+					<%
+						} else {
+					%>
+					<li><a href="logout">로그 아웃</a></li>
+					<%
+						}
+					%>
 				</ul>
 		</ul>
 	</div>
@@ -39,7 +56,7 @@
 		<form action="write" method="post">
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="bName" size="50"></td>
+				<td><input type="text" value ="<%=userId%>" name="bName" size="50" readonly></td>
 			</tr>
 			<tr>
 				<td>제목</td>
@@ -51,7 +68,7 @@
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="입력">
-					&nbsp;&nbsp; <a href="list.do">취소</a></td>
+					&nbsp;&nbsp; <a href="list">취소</a></td>
 			</tr>
 		</form>
 	</table>

@@ -2,6 +2,7 @@ package com.dowon.myboard.BoardController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -69,8 +70,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("/list") // 게시판 정보를 뿌려준다.
-	public String list(Model model) {
-
+	public String list(HttpServletRequest request,Model model) {
+		System.out.println(request.getSession().getAttribute("User"));
+		
 		System.out.println("list");
 
 		boardCmd = new BoardListCmd();
@@ -91,8 +93,13 @@ public class BoardController {
 	}
 
 	@RequestMapping("/write_view")
-	public String wirte_view(Model model) {
+	public String wirte_view(HttpServletRequest request, Model model) {
 
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
+		
 		System.out.println("write_view");
 
 		return "write_view";
@@ -102,6 +109,11 @@ public class BoardController {
 	public String write(HttpServletRequest request, Model model) {
 		// HttpServletRequest를 왜 받냐면 위에서 작성한 write_view를 폼에서 받아야 하기 때문!
 
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
+		
 		System.out.println("write()");
 
 		model.addAttribute("request", request);
@@ -116,6 +128,12 @@ public class BoardController {
 
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
+		
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
+		
 		model.addAttribute("request", request);
 		boardCmd = new BoardDeleteCmd();
 		boardCmd.execute(model);
@@ -126,6 +144,11 @@ public class BoardController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/updateAction")
 	public String updateAction(HttpServletRequest request, Model model) {
+		
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
 
 		model.addAttribute("request", request);
 
@@ -138,6 +161,11 @@ public class BoardController {
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public String update(HttpServletRequest request, Model model) {
 
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
+		
 		model.addAttribute("request", request);
 
 		boardCmd = new BoardUpdateCmd();
@@ -148,6 +176,11 @@ public class BoardController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/reply_updateAction")
 	public String reply_updateAction(HttpServletRequest request, Model model) {
+		
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
 
 		model.addAttribute("request", request);
 		String bId = request.getParameter("bId");
@@ -159,6 +192,11 @@ public class BoardController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/reply_update")
 	public String reply_update(HttpServletRequest request, Model model) {
+		
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
 
 		model.addAttribute("request", request);
 
@@ -170,6 +208,12 @@ public class BoardController {
 	
 	@RequestMapping("/reply_delete")
 	public String reply_delete(HttpServletRequest request, Model model) {
+		
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("권한이 없습니다.");
+			return "redirect:list";
+		}
+		
 		model.addAttribute("request", request);
 		
 		String bId = request.getParameter("bId");
@@ -184,35 +228,62 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/join")
-	public String join(HttpServletRequest reqeust, Model model) {
+	public String join(HttpServletRequest request, Model model) {
 		
+		if(request.getSession().getAttribute("User") != null) {
+			System.out.println("이미 접속 되어있습니다.");
+			return "redirect:list";
+		}
 		return "join";
 	}
 	
 	@RequestMapping("/joinAction")
 	public String joinAction(HttpServletRequest request, Model model) {
 		
+		if(request.getSession().getAttribute("User") != null) {
+			System.out.println("이미 접속 되어있습니다.");
+			return "redirect:list";
+		}
+		
 		model.addAttribute("request", request);
 		boardCmd = new JoinActionCmd();
 		boardCmd.execute(model);
 		
-		return "list";
+		return "redirect:list";
 	}
 	
 	@RequestMapping("/login")
-	public String login(HttpServletRequest reqeust, Model model) {
+	public String login(HttpServletRequest request, Model model) {
+		System.out.println("before login :" + request.getSession().getAttribute("User"));
 		
+		if(request.getSession().getAttribute("User") != null) {
+			System.out.println("이미 접속 되어있습니다.");
+			return "redirect:list";
+		}
 		return "login";
 	}
 	
 	@RequestMapping("/loginAction")
 	public String loginAction(HttpServletRequest request, Model model) {
 		
+		if(request.getSession().getAttribute("User") != null) {
+			System.out.println("이미 접속 되어있습니다.");
+			return "redirect:list";
+		}
+		
 		model.addAttribute("request", request);
 		boardCmd = new LoginActionCmd();
 		boardCmd.execute(model);
 		
-		return "list";
+		return "redirect:list";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, Model model) {
+		
+		request.getSession().invalidate();
+		
+		return "redirect:list";
 	}
 	
 	@RequestMapping("/dbtest")

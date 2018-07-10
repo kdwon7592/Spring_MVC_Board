@@ -41,8 +41,13 @@ public class JoinActionCmd implements BoardCmd<Model>{
 //		}
 		
 		
-		if (userId == "" || userPassword == "" || userName == "") {//null 이 아니라 ""값으로 체크해야함. 이유는 뭐지...
+		if (userId.replaceAll(" ", "") == "" || userPassword.replaceAll(" ", "") == "" || userName.replaceAll(" ", "") == "") {
+			//null 이 아니라 ""값으로 체크해야함. 이유는 뭐지...
 			System.out.println("입력 안된값 있음.");
+			
+			/*
+			 * 이부분 처리 제대로 안됨 확인 필요.
+			 */
 		} else {
 			UserDAO userDao = new UserDAO();
 			int result = userDao.join(user);

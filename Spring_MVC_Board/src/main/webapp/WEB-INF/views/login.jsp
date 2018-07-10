@@ -26,16 +26,6 @@
 				<li><a href="list">메인</a></li>
 				<li><a href="list">게시판</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expended="false">접속하기<span class="caret"></span></a>
-					<ul class="dropdown-menu"> 
-						<li class="active"><a href='login'>로그인</a></li>
-						<li><a href="join">회원가입</a></li>
-					</ul>
-			</ul>
 		</div>
 	</nav>
 
