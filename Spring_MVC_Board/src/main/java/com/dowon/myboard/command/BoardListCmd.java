@@ -18,16 +18,22 @@ public class BoardListCmd implements BoardCmd<Model> {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		
-		int currentPage = 1;
-		int maxList = 10;
+		int currentPage;
+		int maxList;
 		
 		if(request.getParameter("pages")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("pages"));
 			System.out.println("Testpages: " + request.getParameter("pages"));
-
+		}else {
+			 currentPage = 1;
 		}
 //		
+		if(request.getParameter("maxListExtend") != null) {
+			maxList = Integer.parseInt(request.getParameter("maxListExtend"));
+		}else {
+			maxList = 10;
+		}
+		
 		PagingList pg = new PagingList(currentPage, maxList);
 //		
 //		int offset = (pg.getCurrentPage() - 1) * pg.getMaxList();

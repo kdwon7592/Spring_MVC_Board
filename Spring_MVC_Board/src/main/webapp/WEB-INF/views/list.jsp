@@ -98,8 +98,7 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-		<c:if 
-			test="${paging.currentPage < paging.finalPage}">
+		<c:if test="${paging.currentPage < paging.finalPage}">
 			<li><a href="list?pages=${paging.currentPage + 1}">&gt</a></li>
 		</c:if>
 		<c:if
@@ -107,6 +106,17 @@
 			<li><a href="list?pages=${paging.nextPage}">&gt&gt</a></li>
 		</c:if>
 	</ul>
+
+	<form method="post" action="list?pages=${paging.currentPage}">
+		<select name='maxListExtend'>
+			<option value='10' selected>10</option>
+			<option value='20'>20</option>
+			<option value='30'>30</option>
+			<option value='40'>40</option>
+			<option value='50'>50</option>
+		</select>
+		<button type="submit">변경</button>
+	</form>
 
 	<br />
 	<br />

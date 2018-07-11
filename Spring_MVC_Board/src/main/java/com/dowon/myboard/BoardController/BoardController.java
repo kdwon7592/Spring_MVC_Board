@@ -87,11 +87,20 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
+//		int maxList;
+//		
+//		if(request.getAttribute("maxListExtend") != null) {
+//		 maxList = Integer.parseInt((String) request.getAttribute("maxListExtend"));
+//		}else {
+//			maxList = 10;
+//		}
 		System.out.println("list");
 
 		boardCmd = new BoardListCmd();
 		boardCmd.execute(model);
-
+		
+		
+		
 		return "list";
 	}
 
