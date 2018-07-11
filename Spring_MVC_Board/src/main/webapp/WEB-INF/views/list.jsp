@@ -98,7 +98,7 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-		<c:if
+		<c:if 
 			test="${paging.currentPage < paging.finalPage}">
 			<li><a href="list?pages=${paging.currentPage + 1}">&gt</a></li>
 		</c:if>
