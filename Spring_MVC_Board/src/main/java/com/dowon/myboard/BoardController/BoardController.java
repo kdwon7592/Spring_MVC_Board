@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -26,6 +25,7 @@ import com.dowon.myboard.command.JoinActionCmd;
 import com.dowon.myboard.command.LoginActionCmd;
 import com.dowon.myboard.command.ReplyWriteCmd;
 import com.dowon.myboard.command.TestAjaxCmd;
+import com.dowon.myboard.util.PagingList;
 
 /**
  * 게시판 url 정보를 통해 Mapping을 하여 각 view에 뿌려주는 역할을 한다.
@@ -85,6 +85,8 @@ public class BoardController {
 	public String list(HttpServletRequest request,Model model) {
 		System.out.println(request.getSession().getAttribute("User"));
 		
+		model.addAttribute("request", request);
+		
 		System.out.println("list");
 
 		boardCmd = new BoardListCmd();
@@ -95,6 +97,16 @@ public class BoardController {
 
 	@RequestMapping("/content")
 	public String content(HttpServletRequest request, Model model) {
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("content");
 		model.addAttribute("request", request);
 
@@ -120,7 +132,18 @@ public class BoardController {
 	@RequestMapping("/write")
 	public String write(HttpServletRequest request, Model model) {
 		// HttpServletRequest를 왜 받냐면 위에서 작성한 write_view를 폼에서 받아야 하기 때문!
-
+		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(request.getSession().getAttribute("User") == null) {
 			System.out.println("권한이 없습니다.");
 			return "redirect:list";
@@ -157,6 +180,17 @@ public class BoardController {
 	@RequestMapping(method = RequestMethod.POST, value = "/updateAction")
 	public String updateAction(HttpServletRequest request, Model model) {
 		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(request.getSession().getAttribute("User") == null) {
 			System.out.println("권한이 없습니다.");
 			return "redirect:list";
@@ -173,6 +207,18 @@ public class BoardController {
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public String update(HttpServletRequest request, Model model) {
 
+		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(request.getSession().getAttribute("User") == null) {
 			System.out.println("권한이 없습니다.");
 			return "redirect:list";
@@ -189,6 +235,17 @@ public class BoardController {
 	@RequestMapping(method = RequestMethod.POST, value = "/reply_updateAction")
 	public String reply_updateAction(HttpServletRequest request, Model model) {
 		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(request.getSession().getAttribute("User") == null) {
 			System.out.println("권한이 없습니다.");
 			return "redirect:list";
@@ -204,6 +261,17 @@ public class BoardController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/reply_update")
 	public String reply_update(HttpServletRequest request, Model model) {
+		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(request.getSession().getAttribute("User") == null) {
 			System.out.println("권한이 없습니다.");
@@ -252,6 +320,17 @@ public class BoardController {
 	@RequestMapping("/joinAction")
 	public String joinAction(HttpServletRequest request, Model model) {
 		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(request.getSession().getAttribute("User") != null) {
 			System.out.println("이미 접속 되어있습니다.");
 			return "redirect:list";
@@ -277,6 +356,17 @@ public class BoardController {
 	
 	@RequestMapping("/loginAction")
 	public String loginAction(HttpServletRequest request, Model model) {
+		
+		try {
+			/*
+			 * 한글 깨짐 문제를 해결했따!!
+			 * 
+			 */
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(request.getSession().getAttribute("User") != null) {
 			System.out.println("이미 접속 되어있습니다.");

@@ -34,7 +34,7 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList<BoardDTO> list() {
+	public ArrayList<BoardDTO> list(int offset, int maxList) {
 
 		ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
 		Connection connection = null;
@@ -43,11 +43,13 @@ public class BoardDAO {
 
 		try {
 			connection = dataSource.getConnection();
-			String query = "select * from b_board order by bId";
+			String query = "select * from b_board order by bId desc limit ?, ?";
 			/*
 			 * s_board에 b_board에 접근하여 정보를 가져온다.
 			 */
 			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1,offset);
+			pstmt.setInt(2, maxList);
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
@@ -78,7 +80,41 @@ public class BoardDAO {
 		}
 		return dtos;
 	}
-
+	
+	public int total_cnt() {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		
+		int cnt = 0;
+		try {
+			connection = dataSource.getConnection();
+			String query = "select count(*) cnt from b_board";
+			pstmt = connection.prepareStatement(query);
+			resultSet = pstmt.executeQuery();
+			
+			while (resultSet.next()) {
+				cnt = resultSet.getInt("cnt");
+			
+			System.out.println(cnt);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
+	}
 	public BoardDTO contentView(int BoardId) {
 
 		BoardDTO dto = new BoardDTO();

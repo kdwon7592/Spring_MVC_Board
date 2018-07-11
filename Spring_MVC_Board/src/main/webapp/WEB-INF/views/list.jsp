@@ -77,9 +77,39 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<br/>
-	<br/>
+
+	<ul>
+		<c:if test="${paging.currentPage > 5 }">
+			<!-- 이전 클릭시 전 페이지로 이동 -->
+			<li><a href="list?pages=${paging.prevPage}">&lt&lt</a></li>
+		</c:if>
+		<c:if test="${paging.currentPage > 1 }">
+			<!-- 이전 클릭시 전 페이지로 이동 -->
+			<li><a href="list?pages=${paging.currentPage - 1}">&lt</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}"
+			step="1">
+			<c:choose>
+				<c:when test="${i eq paging.currentPage}">
+					<li>${i}</li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="list?pages=${i}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if
+			test="${paging.currentPage < paging.finalPage}">
+			<li><a href="list?pages=${paging.currentPage + 1}">&gt</a></li>
+		</c:if>
+		<c:if
+			test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
+			<li><a href="list?pages=${paging.nextPage}">&gt&gt</a></li>
+		</c:if>
+	</ul>
+
+	<br />
+	<br />
 
 
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
