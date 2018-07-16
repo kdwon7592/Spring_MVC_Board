@@ -3,8 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width" , initial-scale="1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<title>JSP 웹 게시판</title>
+<style type="text/css">
+a, a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+</style>
 </head>
 <body>
 	<%
@@ -51,26 +63,39 @@
 	</div>
 	</nav>
 
+	<div class="container">
+		<div class="row">
+			<table class="table table-striped"
+				style="text-align: center; border: 1px solid #dddddd">
+				<form action="reply_updateAction" method="post">
+					<input type="hidden" name="rId" value="${reply_update.rId}">
+					<input type="hidden" name="bId" value="${reply_update.bId}">
 
-	<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form action="reply_updateAction" method="post">
-			<input type="hidden" name="rId" value="${reply_update.rId}">
-			<input type="hidden" name="bId" value="${reply_update.bId}">
-
-			<thead>
-				<td>작성자</td>
-				<td colspan="4">내용</td>
-			</thead>
-			<tbody>
-				<td>${reply_update.rName}</td>
-				<td><textarea rows="3" name="rComment">${reply_update.rComment}</textarea></td>
-				<td><input type="submit" value="수정">
-				<td><a href="content?bId=${reply_update.bId}">취소</a></td>
-				<td><a
-					href="reply_delete?rId=${reply_update.rId}&bId=${reply_update.bId}">삭제</a></td>
-			</tbody>
-		</form>
-	</table>
-
+					<thead>
+						<td>작성자</td>
+						<td colspan="4">내용</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</thead>
+					<tbody>
+						<td>${reply_update.rName}</td>
+						<td><textarea rows="3" name="rComment">${reply_update.rComment}</textarea></td>
+						<td><button type="submit" value="수정"
+								class="btn btn-primary pull-right">수정</button></td>
+						<td><button type="button" class="btn btn-primary pull-right">
+								<a href="content?bId=${reply_update.bId}">취소</a>
+							</button></td>
+						<td><button type="button" class="btn btn-primary pull-right">
+								<a
+									href="reply_delete?rId=${reply_update.rId}&bId=${reply_update.bId}">삭제</a>
+							</button></td>
+					</tbody>
+				</form>
+			</table>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>

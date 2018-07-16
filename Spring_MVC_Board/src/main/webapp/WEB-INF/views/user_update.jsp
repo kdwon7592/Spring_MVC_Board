@@ -18,7 +18,6 @@ a, a:hover {
 </style>
 </head>
 <body>
-
 	<%
 		String userId = null;
 		if (session.getAttribute("User") != null) {
@@ -67,23 +66,37 @@ a, a:hover {
 		<div class="row">
 			<table class="table table-striped"
 				style="text-align: center; border: 1px solid #dddddd">
-				<form action="write" method="post">
-					<tr>
+				<form action="updateAction" method="post">
+					<input type="hidden" name="bId" value="${update.bId}">
+					<thead>
+						<td>번호</td>
+						<td>${update.bId}</td>
+						<td></td>
+					</thead>
+					<thead>
 						<td>이름</td>
-						<td><input type="text" value="<%=userId%>" name="bName"
-							size="50" readonly></td>
-					</tr>
-					<tr>
+						<td>${update.bName}</td>
+						<td></td>
+					</thead>
+					<thead>
 						<td>제목</td>
-						<td><input type="text" name="bTitle" size="50"></td>
-					</tr>
-					<tr>
+						<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
+						<td></td>
+					</thead>
+					<thead>
+						<td>히트</td>
+						<td>${update.bHit}</td>
+						<td></td>
+					</thead>
+					<tbody>
 						<td>내용</td>
-						<td><textarea name="bContent" rows="10"></textarea></td>
-					</tr>
+						<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
+						<td></td>
+					</tbody>
 					<tr>
-						<td><button type="submit" value="입력" class="btn btn-primary pull-right">입력</button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="list">취소</a></button></td>
+						<td><button type="submit" value="수정" class="btn btn-primary pull-right">수정</button></td>
+						<td><button type="button" class="btn btn-primary pull-right"><a href="content?bId=${update.bId}">취소</a></button></td>
+						<td><button type="button" class="btn btn-primary pull-right"><a href="delete?bId=${update.bId}">삭제</a></button></td>
 					</tr>
 				</form>
 			</table>

@@ -1,9 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width" , initial-scale="1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<title>JSP 웹 게시판</title>
+<style type="text/css">
+a, a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+</style>
 </head>
 <body>
 
@@ -52,37 +64,47 @@
 	</div>
 	</nav>
 
-	<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form action="updateAction" method="post">
-			<input type="hidden" name="bId" value="${update.bId}">
-			<thead>
-				<td>번호</td>
-				<td>${update.bId}</td>
-			</thead>
-			<thead>
-				<td>이름</td>
-				<td>${update.bName}</td>
-			</thead>
-			<thead>
-				<td>제목</td>
-				<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
-			</thead>
-			<thead>
-				<td>히트</td>
-				<td>${update.bHit}</td>
-			</thead>
-			<tbody>
-				<td>내용</td>
-				<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
-			</tbody>
-			<tr>
-				<td><input type="submit" value="수정">
-				<td><a href="content?bId=${update.bId}">취소</a></td>
-				<td><a href="delete?bId=${update.bId}">삭제</a></td>
-				</td>
-			</tr>
-		</form>
-	</table>
-
+	<div class="container">
+		<div class="row">
+			<table class="table table-striped"
+				style="text-align: center; border: 1px solid #dddddd">
+				<form action="updateAction" method="post">
+					<input type="hidden" name="bId" value="${update.bId}">
+					<thead>
+						<td>번호</td>
+						<td>${update.bId}</td>
+						<td></td>
+					</thead>
+					<thead>
+						<td>이름</td>
+						<td>${update.bName}</td>
+						<td></td>
+					</thead>
+					<thead>
+						<td>제목</td>
+						<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
+						<td></td>
+					</thead>
+					<thead>
+						<td>히트</td>
+						<td>${update.bHit}</td>
+						<td></td>
+					</thead>
+					<tbody>
+						<td>내용</td>
+						<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
+						<td></td>
+					</tbody>
+					<tr>
+						<td><button type="submit" value="수정" class="btn btn-primary pull-right">수정</button></td>
+						<td><button type="button" class="btn btn-primary pull-right"><a href="content?bId=${update.bId}">취소</a></button></td>
+						<td><button type="button" class="btn btn-primary pull-right"><a href="delete?bId=${update.bId}">삭제</a></button></td>
+					</tr>
+				</form>
+			</table>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>
