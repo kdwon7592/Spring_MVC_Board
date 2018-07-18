@@ -25,7 +25,9 @@ import com.dowon.myboard.command.JoinActionCmd;
 import com.dowon.myboard.command.LoginActionCmd;
 import com.dowon.myboard.command.ReplyWriteCmd;
 import com.dowon.myboard.command.TestAjaxCmd;
-import com.dowon.myboard.util.PagingList;
+import com.dowon.myboard.command.UserDeleteCmd;
+import com.dowon.myboard.command.UserUpdateActionCmd;
+import com.dowon.myboard.command.UserUpdateCmd;
 
 /**
  * 게시판 url 정보를 통해 Mapping을 하여 각 view에 뿌려주는 역할을 한다.
@@ -33,8 +35,8 @@ import com.dowon.myboard.util.PagingList;
 
 @Controller
 public class BoardController {
-
-	BoardCmd boardCmd;
+	
+	BoardCmd boardCmd; 
 
 	@RequestMapping("/test")
 	public String test(Model model) {
@@ -49,7 +51,6 @@ public class BoardController {
 	@RequestMapping(value = "/reply_write", method = RequestMethod.POST )
 	public String reply_write(HttpServletRequest request, ModelMap modelMap) {
 		modelMap.addAttribute("request", request);
-		
 		try {
 			/*
 			 * 한글 깨짐 문제를 해결했따!!
@@ -215,8 +216,6 @@ public class BoardController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public String update(HttpServletRequest request, Model model) {
-
-		
 		try {
 			/*
 			 * 한글 깨짐 문제를 해결했따!!
@@ -395,6 +394,52 @@ public class BoardController {
 		request.getSession().invalidate();
 		
 		return "redirect:list";
+	}
+	
+	@RequestMapping("/user_update")
+	public String user_update(HttpServletRequest request, Model model) {
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("로그인이 필요합니다.");
+			return "redirect:list";
+		}
+		
+		model.addAttribute("request", request);
+		
+		boardCmd = new UserUpdateCmd();
+		boardCmd.execute(model);
+		
+		return "user_update";
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/user_updateAction")
+	public String user_updateAction(HttpServletRequest request, Model model) {
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("로그인이 필요합니다.");
+			return "redirect:list";
+		}
+		
+		model.addAttribute("request", request);
+		
+		boardCmd = new UserUpdateActionCmd();
+		boardCmd.execute(model);
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/user_delete")
+	public String user_delete(HttpServletRequest request, Model model) {
+		if(request.getSession().getAttribute("User") == null) {
+			System.out.println("로그인이 필요합니다.");
+			return "redirect:list";
+		}
+		
+		model.addAttribute("request", request);
+		
+		boardCmd = new UserDeleteCmd();
+		boardCmd.execute(model);
+		
+		return "redirect:logout";
 	}
 	
 	@RequestMapping("/dbtest")

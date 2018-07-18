@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<title>JSP 웹 게시판</title>
+<title>스프링 게시판</title>
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -66,38 +67,44 @@ a, a:hover {
 		<div class="row">
 			<table class="table table-striped"
 				style="text-align: center; border: 1px solid #dddddd">
-				<form action="updateAction" method="post">
-					<input type="hidden" name="bId" value="${update.bId}">
+				<form action="user_updateAction" method="post">
 					<thead>
-						<td>번호</td>
-						<td>${update.bId}</td>
+						<td>아이디</td>
+						<td>${uesr.userId}</td>
+						<td><input type="hidden" name="userId" value="${user.userId}"></td>
+					</thead>
+					<thead>
+						<td>비밀번호</td>
+						<td><input type="text" name="userPassword"></td>
 						<td></td>
 					</thead>
 					<thead>
 						<td>이름</td>
-						<td>${update.bName}</td>
+						<td><input type="text" name="userName"
+							value="${user.userName}"></td>
 						<td></td>
 					</thead>
 					<thead>
-						<td>제목</td>
-						<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
-						<td></td>
+						<td>성별</td>
+						<td>${user.userGender}</td>
+						<td><input type="hidden" name="userGender" value="${user.userGender}"></td>
 					</thead>
 					<thead>
-						<td>히트</td>
-						<td>${update.bHit}</td>
+						<td>이메일</td>
+						<td><input type="text" name="userEmail"
+							value="${user.userEmail}"></td>
 						<td></td>
 					</thead>
-					<tbody>
-						<td>내용</td>
-						<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
-						<td></td>
-					</tbody>
-					<tr>
-						<td><button type="submit" value="수정" class="btn btn-primary pull-right">수정</button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="content?bId=${update.bId}">취소</a></button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="delete?bId=${update.bId}">삭제</a></button></td>
-					</tr>
+				<tr>
+					<td><button type="submit" value="수정"
+							class="btn btn-primary pull-right">수정</button></td>
+					<td><button type="button" class="btn btn-primary pull-right">
+							<a href="list">취소</a>
+						</button></td>
+					<td><button type="button" class="btn btn-primary pull-right">
+							<a href="user_delete?userId=${user.userId}">회원탈퇴</a>
+						</button></td>
+				</tr>
 				</form>
 			</table>
 		</div>

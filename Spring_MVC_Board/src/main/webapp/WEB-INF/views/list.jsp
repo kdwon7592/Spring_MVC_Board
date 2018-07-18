@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<title>JSP 웹 게시판</title>
+<title>스프링 게시판</title>
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -38,7 +38,7 @@ a, a:hover {
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="list">JSP 웹 게시판</a>
+			<a class="navbar-brand" href="list">스프링 게시판</a>
 		</div>
 		<div class="colapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
@@ -77,6 +77,7 @@ a, a:hover {
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expended="false">회원관리<span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a href='user_update?userId=<%=userId%>'>화원 정보 수정</a></li>
 						<li><a href='logout'>로그아웃</a></li>
 					</ul></li>
 			</ul>
@@ -96,7 +97,7 @@ a, a:hover {
 					<td>이름</td>
 					<td>제목</td>
 					<td>날짜</td>
-					<td>히트</td>
+					<td>조회수</td>
 				</tr>
 				<c:forEach items="${list}" var="dto">
 					<!-- list 정보 안에 BoardDTO객체들을 dto라고 명명한다. -->

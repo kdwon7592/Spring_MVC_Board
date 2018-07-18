@@ -31,7 +31,7 @@ public class BoardListCmd implements BoardCmd<Model> {
 		if(request.getParameter("maxListExtend") != null) {
 			maxList = Integer.parseInt(request.getParameter("maxListExtend"));
 		}else {
-			maxList = 10;
+			maxList = 30;
 		}
 		
 		PagingList pg = new PagingList(currentPage, maxList);

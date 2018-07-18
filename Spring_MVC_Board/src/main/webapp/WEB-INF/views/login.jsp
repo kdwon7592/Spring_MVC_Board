@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<title>JSP 웹 게시판</title>
+<title>스프링 게시판</title>
 <style type="text/css">
 a, a:hover {
 	color: #000000;

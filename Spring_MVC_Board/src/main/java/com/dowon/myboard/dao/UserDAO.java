@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.dowon.myboard.dto.ReplyDTO;
 import com.dowon.myboard.dto.UserDTO;
 
 public class UserDAO {
@@ -93,5 +92,100 @@ public class UserDAO {
 			}
 		}
 		return 0;
+	}
+	
+	public UserDTO getUser(String userId) {
+
+		UserDTO user = new UserDTO();
+		
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			String query = "select * from USER where userId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, userId);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				// while문으로 resultSet.next를 하지 않으면 sql exception 발생
+				String uId = resultSet.getString("userID");
+				String uPassword = resultSet.getString("userPassword");
+				String uName = resultSet.getString("userName");
+				String uGender = resultSet.getString("userGender");
+				String uEmail = resultSet.getString("userEmail");
+				
+				user = new UserDTO(uId, uPassword, uName, uGender, uEmail);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+	
+	public void update(String userId, String userPassword, String userName, String userEmail) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "update USER set userPassword = ?, userName = ?, userEmail = ? where userId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, userPassword);
+			pstmt.setString(2, userName);
+			pstmt.setString(3, userEmail);
+			pstmt.setString(4, userId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public void delete(String userId) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "delete from USER where userId = ?";
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, userId);
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 }

@@ -5,7 +5,7 @@
 <%@ page import="com.dowon.myboard.dto.BoardDTO"%>
 <%@ page import="com.dowon.myboard.dto.ReplyDTO"%>
 <%@ page import="java.util.ArrayList"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<title>JSP 웹 게시판</title>
+<title>스프링 게시판</title>
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -57,41 +57,41 @@ a, a:hover {
 		}
 	%>
 	<nav class="navbar navbar-default">
-	<div class="navbar-header">
-		<button type="button" class="navbar-toggle collapsed"
-			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-			aria-expended="false">
-			<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-				class="icon-bar"></span>
-		</button>
-		<a class="navbar-brand" href="list">스프링 웹 게시판</a>
-	</div>
-	<div class="colapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<ul class="nav navbar-nav">
-			<li><a href="list">메인</a></li>
-			<li><a href="list">게시판</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-haspopup="true"
-				aria-expended="false">접속하기<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<%
-						if (userId == null) {
-					%>
-					<li class="active"><a href='login'>로그인</a></li>
-					<li><a href="join">회원가입</a></li>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expended="false">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="list">스프링 웹 게시판</a>
+		</div>
+		<div class="colapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="list">메인</a></li>
+				<li><a href="list">게시판</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expended="false">접속하기<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<%
+							if (userId == null) {
+						%>
+						<li class="active"><a href='login'>로그인</a></li>
+						<li><a href="join">회원가입</a></li>
 
-					<%
-						} else {
-					%>
-					<li><a href="logout">로그 아웃</a></li>
-					<%
-						}
-					%>
-				</ul>
-		</ul>
-	</div>
+						<%
+							} else {
+						%>
+						<li><a href="logout">로그 아웃</a></li>
+						<%
+							}
+						%>
+					</ul>
+			</ul>
+		</div>
 	</nav>
 
 
@@ -105,15 +105,18 @@ a, a:hover {
 					<td>번호</td>
 					<td>이름</td>
 					<td>제목</td>
-					<td>내용</td>
 					<td>조회수</td>
 				</thead>
 				<tbody>
 					<td>${content.bId}</td>
 					<td>${content.bName}</td>
 					<td>${content.bTitle}</td>
-					<td>${content.bContent}</td>
 					<td>${content.bHit}</td>
+				</tbody>
+				<tr>
+					<td style="vertical-align: middle;">내용</td>
+					<td height="150px" colspan="3" style="vertical-align: middle; background-color: white;">${content.bContent}</td>
+
 					<%
 						BoardDTO board = (BoardDTO) request.getAttribute("content");
 						if (board.getbName().equals(userId)) {
@@ -124,7 +127,7 @@ a, a:hover {
 						}
 					%>
 					<a href="list" class="btn btn-primary pull-right">목록보기</a>
-				</tbody>
+				</tr>
 			</table>
 			</form>
 		</div>
@@ -135,14 +138,9 @@ a, a:hover {
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped"
-				style="text-align: center; border: 1px solid #dddddd">
+				style="text-align: center; border: 1px solid #dddddd;" >
 				<tr>
-					<td colspan="3">댓글</td>
-				</tr>
-				<tr>
-					<td>작성자</td>
-					<td>내용</td>
-					<td></td>
+					<td colspan="3" style="text-align: left; padding-left: 15px;">댓글</td>
 				</tr>
 				<c:forEach items="${reply}" var="dto">
 					<form action="reply_update" method="post">
@@ -157,7 +155,7 @@ a, a:hover {
 							<td><button type="submit" value="수정"
 									class="btn btn-primary pull-right">수정</button></td>
 							<%
-								}else{
+								} else {
 							%>
 							<td></td>
 							<%
@@ -170,6 +168,7 @@ a, a:hover {
 			</table>
 		</div>
 	</div>
+
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped"
@@ -196,5 +195,6 @@ a, a:hover {
 			</table>
 		</div>
 	</div>
+
 </body>
 </html>
