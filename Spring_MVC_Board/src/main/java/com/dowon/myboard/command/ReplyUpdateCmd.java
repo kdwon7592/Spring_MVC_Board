@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import com.dowon.myboard.dao.ReplyDAO;
 import com.dowon.myboard.dto.ReplyDTO;
 
-public class BoardReplyUpdateCmd implements BoardCmd<Model>{
+public class ReplyUpdateCmd implements BoardCmd<Model>{
 	
 	@Override
 	public void execute(Model model) {

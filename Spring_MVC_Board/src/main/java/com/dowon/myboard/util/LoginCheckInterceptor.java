@@ -15,17 +15,23 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession session = request.getSession(false);
 		
-		if(session==null) {
-			response.sendRedirect(request.getContextPath() + "/myboard/login");
+		System.out.println("인터셉터 작동?");
+		
+		/*if(session == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
 			return false;
 		}
 		
 		String userId = (String) session.getAttribute("User");
 		
 		if(userId == null) {
-			response.sendRedirect(request.getContextPath() + "/myboard/login");
+			response.sendRedirect(request.getContextPath() + "/login");
+			System.out.println("UserID가 null?");
+
 			return false;
-		}
+		}*/
+		
+		System.out.println("userID가 true??");
 		
 		return true;
 	}

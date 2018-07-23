@@ -18,12 +18,13 @@ public class BoardListCmd implements BoardCmd<Model> {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		// 페이징 쿼리를 위한 변수
 		int currentPage;
 		int maxList;
 		
 		if(request.getParameter("pages")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("pages"));
-			System.out.println("Testpages: " + request.getParameter("pages"));
 		}else {
 			 currentPage = 1;
 		}
@@ -45,7 +46,6 @@ public class BoardListCmd implements BoardCmd<Model> {
 		pg.setTotal_num(dao.total_cnt());
 		
 		pg.makePaging();
-		System.out.println(pg.toString());
 		
 		model.addAttribute("list", dtos);
 		model.addAttribute("paging", pg);

@@ -70,7 +70,7 @@ a, a:hover {
 				<form action="user_updateAction" method="post">
 					<thead>
 						<td>아이디</td>
-						<td>${uesr.userId}</td>
+						<td>${user.userId}</td>
 						<td><input type="hidden" name="userId" value="${user.userId}"></td>
 					</thead>
 					<thead>

@@ -68,7 +68,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/myboard/*"/>
+			<mvc:mapping path="/login"/>
 			<beans:bean class="com.dowon.myboard.util.LoginCheckInterceptor"/>  
 		</mvc:interceptor>
 	</mvc:interceptors>
