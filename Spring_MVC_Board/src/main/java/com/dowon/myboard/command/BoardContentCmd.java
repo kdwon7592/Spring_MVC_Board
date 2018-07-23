@@ -23,16 +23,17 @@ public class BoardContentCmd implements BoardCmd<Model> {
 		
 		String bId = request.getParameter("bId");
 		//가져온 request로부터 파라미터를 얻는다. list.jsp에서 얻어오는 bId정보.
-		System.out.println("Content bId = " + bId);
+		
 		BoardDAO dao = new BoardDAO();
+		dao.increaseHit(Integer.parseInt(bId));
+		
 		ReplyDAO rDAO = new ReplyDAO();
 		BoardDTO dto = dao.contentView(Integer.parseInt(bId));
 		ArrayList<ReplyDTO>dtos = rDAO.replyView(Integer.parseInt(bId)); //list정보를 받아 list.jsp에 뿌려준다.
 		
-		dao.increaseHit(Integer.parseInt(bId));
 		
-		model.addAttribute("reply", dtos);
-		model.addAttribute("content", dto);		
+		model.addAttribute("reply", dtos); //댓글 정보를 뿌려준다.
+		model.addAttribute("content", dto);	//글 내용 정보를 뿌려준다.
 	}
 
 }

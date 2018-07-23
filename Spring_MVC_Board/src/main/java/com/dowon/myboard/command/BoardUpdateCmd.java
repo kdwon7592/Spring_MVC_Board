@@ -24,8 +24,6 @@ public class BoardUpdateCmd implements BoardCmd<Model>{
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.contentView(Integer.parseInt(bId));
 		
-		model.addAttribute("update", dto);
-		
+		model.addAttribute("update", dto); //글 내용을 Update 페이지에 전달한다.
 	}
-
 }

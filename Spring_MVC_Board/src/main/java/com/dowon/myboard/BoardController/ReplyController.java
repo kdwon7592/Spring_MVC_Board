@@ -40,18 +40,17 @@ public class ReplyController {
 
 
 	@RequestMapping(value = "/reply_write", method = RequestMethod.POST) //content화면에서 댓글을 쓴다.
-	public String reply_write(HttpServletRequest request, ModelMap modelMap) {
+	public String reply_write(HttpServletRequest request, Model model) {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
-		modelMap.addAttribute("request", request);
+		model.addAttribute("request", request);
 		String bId = request.getParameter("bId"); //댓글을 작성 후 댓글 작성하던 게시글로 다시 돌아가기 위함.
 
 		boardCmd = new ReplyWriteCmd();
-		boardCmd.execute(modelMap);
+		boardCmd.execute(model);
 
 		return "redirect:content?bId=" + bId;
 	}
@@ -61,8 +60,7 @@ public class ReplyController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -78,8 +76,7 @@ public class ReplyController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -87,15 +84,15 @@ public class ReplyController {
 		boardCmd = new ReplyUpdateActionCmd();
 		boardCmd.execute(model);
 
-		return "redirect:content?bId=" + bId;
+		return alert(model, "수정 되었습니다.", "content?bId=" + bId);
+		
 	}
 
 
 	@RequestMapping("/reply_delete") //댓글을 삭제한다.
 	public String reply_delete(HttpServletRequest request, Model model) {
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -104,8 +101,7 @@ public class ReplyController {
 		boardCmd = new ReplyDeleteCmd();
 		boardCmd.execute(model);
 
-		return "redirect:content?bId=" + bId;
-
+		return alert(model, "삭제 되었습니다.", "content?bId=" + bId);
 	}
 	
 	/*
@@ -128,5 +124,14 @@ public class ReplyController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//메세지와  url을 받아서 경고창을 띄운다.
+	public String alert(Model model, String msg, String url) {
+
+		model.addAttribute("message", msg);
+		model.addAttribute("returnUrl", url);
+
+		return "alertAndRedirect";
 	}
 }

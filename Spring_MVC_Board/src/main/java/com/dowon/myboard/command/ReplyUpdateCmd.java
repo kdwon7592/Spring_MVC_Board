@@ -21,7 +21,6 @@ public class ReplyUpdateCmd implements BoardCmd<Model>{
 		
 		String rId = request.getParameter("rId");
 		//가져온 request로부터 파라미터를 얻는다. list.jsp에서 얻어오는 bId정보.
-		System.out.println("rid : " + rId);
 		ReplyDAO dao = new ReplyDAO();
 		ReplyDTO dto = dao.replyGet(Integer.parseInt(rId));
 		

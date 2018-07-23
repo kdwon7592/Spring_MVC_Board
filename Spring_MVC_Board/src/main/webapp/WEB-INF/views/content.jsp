@@ -99,35 +99,36 @@ a, a:hover {
 		<div class="row">
 			<table class="table table-striped"
 				style="text-align: center; border: 1px solid #dddddd">
-				<form action="update" method="post">
+				<form action="content_update" method="post">
 					<input type="hidden" name="bId" value="${content.bId}">
-				<thead>
-					<td>번호</td>
-					<td>이름</td>
-					<td>제목</td>
-					<td>조회수</td>
-				</thead>
-				<tbody>
-					<td>${content.bId}</td>
-					<td>${content.bName}</td>
-					<td>${content.bTitle}</td>
-					<td>${content.bHit}</td>
-				</tbody>
-				<tr>
-					<td style="vertical-align: middle;">내용</td>
-					<td height="150px" colspan="3" style="vertical-align: middle; background-color: white;">${content.bContent}</td>
+					<thead>
+						<td>번호</td>
+						<td>이름</td>
+						<td>제목</td>
+						<td>조회수</td>
+					</thead>
+					<tbody>
+						<td>${content.bId}</td>
+						<td>${content.bName}</td>
+						<td>${content.bTitle}</td>
+						<td>${content.bHit}</td>
+					</tbody>
+					<tr>
+						<td style="vertical-align: middle;">내용</td>
+						<td height="150px" colspan="3" 
+							style="vertical-align: middle; background-color: white;">${content.bContent}</td>
 
-					<%
-						BoardDTO board = (BoardDTO) request.getAttribute("content");
-						if (board.getbName().equals(userId)) {
-					%>
-					<input type="submit" id="update" value="수정"
-						class="btn btn-primary pull-right">
-					<%
-						}
-					%>
-					<a href="list" class="btn btn-primary pull-right">목록보기</a>
-				</tr>
+						<%
+							BoardDTO board = (BoardDTO) request.getAttribute("content");
+							if (board.getbName().equals(userId)) {
+						%>
+						<input type="submit" id="update" value="수정"
+							class="btn btn-primary pull-right">
+						<%
+							}
+						%>
+						<a href="list" class="btn btn-primary pull-right">목록보기</a>
+					</tr>
 			</table>
 			</form>
 		</div>
@@ -138,9 +139,9 @@ a, a:hover {
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped"
-				style="text-align: center; border: 1px solid #dddddd;" >
+				style="text-align: center; border: 1px solid #dddddd;">
 				<tr>
-					<td colspan="3" style="text-align: left; padding-left: 15px;">댓글</td>
+					<td colspan="4" style="text-align: left; padding-left: 15px;">댓글</td>
 				</tr>
 				<c:forEach items="${reply}" var="dto">
 					<form action="reply_update" method="post">
@@ -162,7 +163,7 @@ a, a:hover {
 								}
 							%>
 						
-						<tr>
+						</tr>
 					</form>
 				</c:forEach>
 			</table>
@@ -186,8 +187,8 @@ a, a:hover {
 					</tr>
 					<tr>
 						<td><input type="text" value=<%=userId%> name="rName"
-							id="rName" readonly></td>
-						<td><input type="text" name="rComment" id="rComment"></td>
+							id="rName" class="form-control" readonly></td>
+						<td><input type="text" name="rComment" class="form-control" id="rComment"></td>
 						<td><button type="submit" value="입력"
 								class="btn btn-primary pull-right">입력</button></td>
 					</tr>
@@ -195,6 +196,5 @@ a, a:hover {
 			</table>
 		</div>
 	</div>
-
 </body>
 </html>

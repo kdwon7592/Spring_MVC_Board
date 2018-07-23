@@ -93,7 +93,5 @@ a, a:hover {
 				name="userEmail" maxlength="20">
 		</div>
 		<input type="submit" class="btn btn-primary form-control" value="회원가입">
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
 </body>
 </html>

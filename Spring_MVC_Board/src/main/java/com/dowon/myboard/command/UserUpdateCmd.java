@@ -19,7 +19,7 @@ public class UserUpdateCmd implements BoardCmd<Model>{
 		//request정보를 가져온다.
 		
 		String userId = request.getParameter("userId");
-		//가져온 request로부터 파라미터를 얻는다. list.jsp에서 얻어오는 bId정보.
+		//가져온 request로부터 파라미터를 얻는다.
 		
 		UserDAO dao = new UserDAO();
 		UserDTO dto = dao.getUser(userId);
@@ -27,7 +27,5 @@ public class UserUpdateCmd implements BoardCmd<Model>{
 		System.out.println(dto.getUserId());
 		
 		model.addAttribute("user", dto);
-		
 	}
-
 }

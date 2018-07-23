@@ -70,32 +70,38 @@ a, a:hover {
 				<form action="reply_updateAction" method="post">
 					<input type="hidden" name="rId" value="${reply_update.rId}">
 					<input type="hidden" name="bId" value="${reply_update.bId}">
-
-					<thead>
+					<tr>
 						<td>작성자</td>
 						<td colspan="4">내용</td>
 						<td></td>
 						<td></td>
 						<td></td>
-					</thead>
-					<tbody>
+					</tr>
+					<tr>
 						<td>${reply_update.rName}</td>
-						<td><textarea rows="3" name="rComment">${reply_update.rComment}</textarea></td>
+						<td><textarea rows="3" name="rComment" class="form-control">${reply_update.rComment}</textarea></td>
 						<td><button type="submit" value="수정"
 								class="btn btn-primary pull-right">수정</button></td>
 						<td><button type="button" class="btn btn-primary pull-right">
-								<a href="content?bId=${reply_update.bId}">취소</a>
+								<a href="content?bId=${reply_update.bId}" style="color: white;">취소</a>
 							</button></td>
-						<td><button type="button" class="btn btn-primary pull-right">
-								<a
-									href="reply_delete?rId=${reply_update.rId}&bId=${reply_update.bId}">삭제</a>
+						<td><button type="button" class="btn btn-primary pull-right" onClick="check_confirm()">
+								<a style="color: white;">삭제</a>
 							</button></td>
-					</tbody>
+					</tr>
 				</form>
 			</table>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
+	<script>
+		function check_confirm() {
+			result = confirm('삭제 하시겠습니까');
+			if (result == true) {
+				location.href = "reply_delete?rId=${reply_update.rId}&bId=${reply_update.bId}";
+			} else {
+				return false;
+			}
+		}
+	</script>
 </body>
 </html>

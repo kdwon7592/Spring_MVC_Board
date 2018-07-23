@@ -95,8 +95,6 @@ public class BoardDAO {
 			
 			while (resultSet.next()) {
 				cnt = resultSet.getInt("cnt");
-			
-			System.out.println(cnt);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

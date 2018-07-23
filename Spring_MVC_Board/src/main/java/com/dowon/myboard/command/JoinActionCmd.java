@@ -25,10 +25,6 @@ public class JoinActionCmd implements BoardCmd<Model>{
 		
 		UserDTO user = new UserDTO(userId, userPassword, userName, userGender, userEmail);
 		
-		System.out.println(userId + " " + userPassword + " " + userName + " " + userGender + " " + userEmail);
-		
-		System.out.println(userId.equals(""));
-	
 //		if(session.getAttribute("userId") != null){
 //			userId = (String) session.getAttribute("userId");
 //		}

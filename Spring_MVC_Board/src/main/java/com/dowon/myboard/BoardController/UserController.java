@@ -38,23 +38,20 @@ public class UserController {
 
 	BoardCmd boardCmd;
 
-
-	@RequestMapping("/join") //회원 가입 화면을 보여준다.
+	@RequestMapping("/join") // 회원 가입 화면을 보여준다.
 	public String join(HttpServletRequest request, Model model) {
 		if (isLogin(request)) {
-			System.out.println("이미 로그인 되어있습니다.");
-			return "redirect:list";
+			return alert(model, "Already Login", "list");
 		}
 		return "join";
 	}
 
-	@RequestMapping("/joinAction") //회원 가입 정보를 DB에 뿌려준다.
+	@RequestMapping("/joinAction") // 회원 가입 정보를 DB에 뿌려준다.
 	public String joinAction(HttpServletRequest request, Model model) {
 		encodeUTF_8(request);
 
 		if (isLogin(request)) {
-			System.out.println("이미 로그인 되어있습니다.");
-			return "redirect:list";
+			return alert(model, "Already Login", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -67,45 +64,48 @@ public class UserController {
 	@RequestMapping("/login") // 로그인 화면을 보여준다.
 	public String login(HttpServletRequest request, Model model) {
 		encodeUTF_8(request);
-		
+
 		if (isLogin(request)) {
-			System.out.println("이미 로그인 되어있습니다.");
-			return "redirect:list";
+			return alert(model, "Already Login", "list");
 		}
+
 		return "login";
 	}
 
-	@RequestMapping("/loginAction") //로그인을 수행한다.
+	@RequestMapping("/loginAction") // 로그인을 수행한다.
 	public String loginAction(HttpServletRequest request, Model model) {
 		encodeUTF_8(request);
-		
+
 		if (isLogin(request)) {
-			System.out.println("이미 로그인 되어있습니다.");
-			return "redirect:list";
+			return alert(model, "Already Login", "list");
 		}
 
 		model.addAttribute("request", request);
+		
 		boardCmd = new LoginActionCmd();
 		boardCmd.execute(model);
 
-		return "redirect:list";
+		if(request.getAttribute("result").equals(1)) {
+			return alert(model, "Login OK!!", "list");
+		}else {
+			return alert(model, "정보가 틀립니다.", "login");
+		}
 	}
 
-	@RequestMapping("/logout") //로그아웃을 수행한다.
+	@RequestMapping("/logout") // 로그아웃을 수행한다.
 	public String logout(HttpServletRequest request, Model model) {
 
 		request.getSession().invalidate();
 
-		return "redirect:list";
+		return alert(model, "LogOut!!", "list");
 	}
 
-	@RequestMapping("/user_update") //회원 정보를 수정한다.
+	@RequestMapping("/user_update") // 회원 정보를 수정한다.
 	public String user_update(HttpServletRequest request, Model model) {
 		encodeUTF_8(request);
-		
+
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -118,13 +118,13 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/user_updateAction")
-	public String user_updateAction(HttpServletRequest request, Model model) { //수정된 회원 정보를 DB에 뿌려준다.
+	public String user_updateAction(HttpServletRequest request, Model model) { // 수정된 회원 정보를 DB에 뿌려준다.
 		encodeUTF_8(request);
-		
+
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
+		
 		model.addAttribute("request", request);
 
 		boardCmd = new UserUpdateActionCmd();
@@ -134,12 +134,11 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/user_delete")
-	public String user_delete(HttpServletRequest request, Model model) { //회원 탈퇴를 한다.
+	public String user_delete(HttpServletRequest request, Model model) { // 회원 탈퇴를 한다.
 		encodeUTF_8(request);
-		
+
 		if (!isLogin(request)) {
-			System.out.println("권한이 없습니다.");
-			return "redirect:list";
+			return alert(model, "권한이 없습니다.", "list");
 		}
 
 		model.addAttribute("request", request);
@@ -149,9 +148,9 @@ public class UserController {
 
 		return "redirect:logout";
 	}
-	
+
 	/*
-	 * 로그인 여부를 체크한다. 
+	 * 로그인 여부를 체크한다.
 	 */
 	public boolean isLogin(HttpServletRequest request) {
 		if (request.getSession().getAttribute("User") == null) {
@@ -160,7 +159,7 @@ public class UserController {
 			return true;
 		}
 	}
-	
+
 	/*
 	 * 기본 인코딩을 UTF-8로 유지한다.
 	 */
@@ -170,5 +169,15 @@ public class UserController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+
+	
+	//메세지와  url을 받아서 경고창을 띄운다.
+	public String alert(Model model, String msg, String url) {
+
+		model.addAttribute("message", msg);
+		model.addAttribute("returnUrl", url);
+
+		return "alertAndRedirect";
 	}
 }

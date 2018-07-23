@@ -4,7 +4,8 @@
 <html>
 <head>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
@@ -71,7 +72,7 @@ a, a:hover {
 				<form action="updateAction" method="post">
 					<input type="hidden" name="bId" value="${update.bId}">
 					<thead>
-						<td>번호</td>
+						<td>글번호</td>
 						<td>${update.bId}</td>
 						<td></td>
 					</thead>
@@ -82,29 +83,39 @@ a, a:hover {
 					</thead>
 					<thead>
 						<td>제목</td>
-						<td><input type="text" name="bTitle" value="${update.bTitle}"></td>
-						<td></td>
-					</thead>
-					<thead>
-						<td>히트</td>
-						<td>${update.bHit}</td>
+						<td><input type="text" name="bTitle" value="${update.bTitle}"
+							class="form-control"></td>
 						<td></td>
 					</thead>
 					<tbody>
 						<td>내용</td>
-						<td><textarea rows="10" name="bContent">${update.bContent}</textarea></td>
+						<td><textarea rows="10" name="bContent" class="form-control">${update.bContent}</textarea></td>
 						<td></td>
 					</tbody>
 					<tr>
-						<td><button type="submit" value="수정" class="btn btn-primary pull-right">수정</button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="content?bId=${update.bId}">취소</a></button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="delete?bId=${update.bId}">삭제</a></button></td>
+						<td><button type="submit" value="수정"
+								class="btn btn-primary pull-right">수정</button></td>
+						<td><button type="button" class="btn btn-primary pull-right">
+								<a style="color: white;" href="content?bId=${update.bId}">취소</a>
+							</button></td>
+						<td><button type="button" class="btn btn-primary pull-right"
+								onClick="check_confirm();">
+								<a style="color: white;">삭제</a>
+							</button></td>
 					</tr>
 				</form>
 			</table>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
+	<script>
+		function check_confirm() {
+			result = confirm('삭제 하시겠습니까');
+			if (result == true) {
+				location.href = "delete?bId=${update.bId}";
+			} else {
+				return false;
+			}
+		}
+	</script>
 </body>
 </html>

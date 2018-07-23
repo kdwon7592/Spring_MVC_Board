@@ -4,7 +4,8 @@
 <html>
 <head>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
@@ -71,25 +72,27 @@ a, a:hover {
 					<tr>
 						<td>이름</td>
 						<td><input type="text" value="<%=userId%>" name="bName"
-							size="50" readonly></td>
+							size="50" class="form-control" readonly></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="bTitle" size="50"></td>
+						<td><input type="text" class="form-control" name="bTitle"
+							size="50"></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea name="bContent" rows="10"></textarea></td>
+						<td><textarea name="bContent" class="form-control" rows="10"></textarea></td>
 					</tr>
 					<tr>
-						<td><button type="submit" value="입력" class="btn btn-primary pull-right">입력</button></td>
-						<td><button type="button" class="btn btn-primary pull-right"><a href="list">취소</a></button></td>
+						<td><button type="button" class="btn btn-primary pull-right">
+								<a style="color: white;" href="list">취소</a>
+							</button></td>
+						<td><button type="submit" value="입력"
+								class="btn btn-primary pull-right">입력</button></td>
 					</tr>
 				</form>
 			</table>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
 </body>
 </html>
