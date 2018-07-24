@@ -63,7 +63,7 @@ public class BoardController {
 
 		boardCmd = new BoardContentCmd();
 		boardCmd.execute(model);
-
+ 
 		return "content";
 	}
 
