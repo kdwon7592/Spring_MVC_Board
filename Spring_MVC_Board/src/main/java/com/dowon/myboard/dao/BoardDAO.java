@@ -34,7 +34,7 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList<BoardDTO> list(int offset, int maxList) {
+	public ArrayList<BoardDTO> list(int offset, int maxList, String opt, String condition) {
 
 		ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
 		Connection connection = null;
@@ -43,15 +43,50 @@ public class BoardDAO {
 
 		try {
 			connection = dataSource.getConnection();
-			String query = "select * from b_board order by bId desc limit ?, ?";
-			/*
-			 * s_board에 b_board에 접근하여 정보를 가져온다.
-			 */
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1,offset);
-			pstmt.setInt(2, maxList);
-			resultSet = pstmt.executeQuery();
 
+			if (opt == null) {
+				String query = "select * from b_board order by bId desc limit ?, ?";
+				/*
+				 * s_board에 b_board에 접근하여 정보를 가져온다.
+				 */
+				pstmt = connection.prepareStatement(query);
+				pstmt.setInt(1, offset);
+				pstmt.setInt(2, maxList);
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("0")) {
+				// 제목으로 찾기
+				String query = "select * from b_board where bTitle like ? order by bId desc limit ?,?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, maxList);
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("1")) {
+				// 내용으로 찾기
+				String query = "select * from b_board where bContent like ? order by bId desc limit ?,?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, maxList);
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("2")) {
+				// 제목+내용 으로 찾기
+				String query = "select * from b_board where bTitle like ? or bContent like ? order by bId desc limit ?,?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				pstmt.setString(2, "%" + condition + "%");
+				pstmt.setInt(3, offset);
+				pstmt.setInt(4, maxList);
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("3")) {
+				// 작성자로 찾기
+				String query = "select * from b_board where bName like ? order by bId desc limit ?,?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, maxList);
+				resultSet = pstmt.executeQuery();
+			}
 			while (resultSet.next()) {
 				int bId = resultSet.getInt("bId");
 				String bName = resultSet.getString("bName");
@@ -80,19 +115,46 @@ public class BoardDAO {
 		}
 		return dtos;
 	}
-	
-	public int total_cnt() {
+
+	public int total_cnt(String opt, String condition) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		
+
 		int cnt = 0;
 		try {
 			connection = dataSource.getConnection();
-			String query = "select count(*) cnt from b_board";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
 			
+			if (opt == null) {
+				String query = "select count(*) cnt from b_board";
+				pstmt = connection.prepareStatement(query);
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("0")) {
+				// 제목으로 찾기
+				String query = "select count(*) cnt from b_board where bTitle like ?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("1")) {
+				// 내용으로 찾기
+				String query = "select count(*) cnt from b_board where bContent like ?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("2")) {
+				// 제목+내용 으로 찾기
+				String query = "select count(*) cnt from b_board where bTitle like ? or bContent like ?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				pstmt.setString(2, "%" + condition + "%");
+				resultSet = pstmt.executeQuery();
+			} else if (opt.equals("3")) {
+				// 작성자로 찾기
+				String query = "select count(*) cnt from b_board where bName like ?";
+				pstmt = connection.prepareStatement(query);
+				pstmt.setString(1, "%" + condition + "%");
+				resultSet = pstmt.executeQuery();
+			}
 			while (resultSet.next()) {
 				cnt = resultSet.getInt("cnt");
 			}
@@ -110,9 +172,10 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return cnt;
 	}
+
 	public BoardDTO contentView(int BoardId) {
 
 		BoardDTO dto = new BoardDTO();
@@ -233,7 +296,7 @@ public class BoardDAO {
 			}
 		}
 	}
-	
+
 	public void increaseHit(int bId) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -242,9 +305,9 @@ public class BoardDAO {
 			String query = "update b_board set bHit = bHit + 1 where bId = ?";
 			pstmt = connection.prepareStatement(query);
 			pstmt.setInt(1, bId);
-			
+
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -258,6 +321,5 @@ public class BoardDAO {
 			}
 		}
 	}
-	
 
 }

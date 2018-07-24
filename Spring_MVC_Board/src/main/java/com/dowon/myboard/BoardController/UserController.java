@@ -58,7 +58,13 @@ public class UserController {
 		boardCmd = new JoinActionCmd();
 		boardCmd.execute(model);
 
-		return "redirect:list";
+		if(request.getAttribute("result").equals(1)) {
+			return alert(model, "회원가입이 되었습니다.", "list");
+		}else if(request.getAttribute("result").equals(-2)){
+			return alert(model, "입력되지 않은 정보가 있습니다.", "join");
+		}else {
+			return alert(model, "이미 가입되어있는 아이디입니다.", "join");
+		}
 	}
 
 	@RequestMapping("/login") // 로그인 화면을 보여준다.

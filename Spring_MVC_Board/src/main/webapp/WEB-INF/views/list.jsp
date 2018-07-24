@@ -29,6 +29,14 @@ a, a:hover {
 		if (session.getAttribute("User") != null) {
 			userId = (String) session.getAttribute("User");
 		}
+		String opt = null;
+		String cond = null;
+		if (session.getAttribute("opt") != null) {
+			opt = (String) session.getAttribute("opt");
+		}
+		if (session.getAttribute("cond") != null) {
+			cond = (String) session.getAttribute("cond");
+		}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -118,6 +126,10 @@ a, a:hover {
 
 	<div class="container">
 		<nav>
+			<%
+				System.out.println("test : " + opt + cond);
+				if(opt == null || cond == null){
+			%>
 			<ul class="pagination">
 				<c:if test="${paging.currentPage > 5 }">
 					<!-- 이전 클릭시 전 페이지로 이동 -->
@@ -150,7 +162,57 @@ a, a:hover {
 						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
 				</c:if>
 			</ul>
+			<%
+				}else {
+			%>
+			<ul class="pagination">
+				<c:if test="${paging.currentPage > 5 }">
+					<!-- 이전 클릭시 전 페이지로 이동 -->
+					<li><a href="list?pages=${paging.prevPage}&opt=<%=opt %>&cond=<%=cond%>"
+						class="btn btn-success btn-arraw-left">&lt&lt</a></li>
+				</c:if>
+				<c:if test="${paging.currentPage > 1 }">
+					<!-- 이전 클릭시 전 페이지로 이동 -->
+					<li><a href="list?pages=${paging.currentPage - 1}&opt=<%=opt %>&cond=<%=cond%>"
+						class="btn btn-success btn-arraw-left">&lt</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${paging.startPage}"
+					end="${paging.endPage}" step="1">
+					<c:choose>
+						<c:when test="${i eq paging.currentPage}">
+							<li><a href="#" id="non-click">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="list?pages=${i}&opt=<%=opt %>&cond=<%=cond%>">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${paging.currentPage < paging.finalPage}">
+					<li><a href="list?pages=${paging.currentPage + 1}&opt=<%=opt %>&cond=<%=cond%>"
+						class="btn btn-success btn-arraw-left">&gt</a></li>
+				</c:if>
+				<c:if
+					test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
+					<li><a href="list?pages=${paging.nextPage}&opt=<%=opt %>&cond=<%=cond%>"
+						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
+				</c:if>
+			</ul>
+			<%
+				}
+			%>
 		</nav>
+	</div>
+
+	<div class="container">
+		<form action="list">
+			<select name="opt">
+				<option value="0">제목</option>
+				<option value="1">내용</option>
+				<option value="2">제목+내용</option>
+				<option value="3">작성자</option>
+			</select> <input type="text" size="20" name="cond" />
+			<button type="submit" class="btn btn-success btn-arraw-left">검색</button>
+		</form>
 	</div>
 </body>
 </html>

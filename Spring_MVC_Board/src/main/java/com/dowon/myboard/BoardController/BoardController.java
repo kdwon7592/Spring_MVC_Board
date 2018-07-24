@@ -48,7 +48,7 @@ public class BoardController {
 	@RequestMapping("/list") // 게시판 전체 글 목록을 보여주는 메인화면.
 	public String list(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-
+	
 		boardCmd = new BoardListCmd();
 		boardCmd.execute(model);
 
@@ -141,16 +141,16 @@ public class BoardController {
 		boardCmd.execute(model);
 
 		return alert(model, "수정 되었습니다.", "list");
-		}
-	
+	}
+
 	@RequestMapping("/alertAndRedirect") // alert 창을 띄운다.
-	public String alertAndRedirect(HttpServletRequest request,Model model) {
-		
+	public String alertAndRedirect(HttpServletRequest request, Model model) {
+
 		return "alertAndRedirect";
 	}
 
 	/*
-	 * 로그인 여부를 체크한다. 
+	 * 로그인 여부를 체크한다.
 	 */
 	public boolean isLogin(HttpServletRequest request) {
 		if (request.getSession().getAttribute("User") == null) {
@@ -159,7 +159,7 @@ public class BoardController {
 			return true;
 		}
 	}
-	
+
 	/*
 	 * 기본 인코딩을 UTF-8로 유지한다.
 	 */
@@ -170,8 +170,8 @@ public class BoardController {
 			e.printStackTrace();
 		}
 	}
-	
-	//메세지와  url을 받아서 경고창을 띄운다.
+
+	// 메세지와 url을 받아서 경고창을 띄운다.
 	public String alert(Model model, String msg, String url) {
 
 		model.addAttribute("message", msg);
