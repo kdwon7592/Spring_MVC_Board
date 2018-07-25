@@ -92,7 +92,7 @@ a, a:hover {
 							</button></td>
 						<td><button type="submit" value="입력"
 								class="btn btn-primary pull-right">입력</button></td>
-					</tr>
+					</tr> 
 				</form>
 			</table>
 		</div>
