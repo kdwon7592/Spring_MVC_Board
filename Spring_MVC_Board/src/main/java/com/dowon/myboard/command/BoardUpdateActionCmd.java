@@ -19,7 +19,7 @@ public class BoardUpdateActionCmd implements BoardCmd<Model> {
 		String bTitle = request.getParameter("bTitle");
 		String bContent = request.getParameter("bContent");
 		BoardDAO dao = new BoardDAO();
-		
+
 		dao.update(Integer.parseInt(bId), bContent, bTitle);
 	}
 

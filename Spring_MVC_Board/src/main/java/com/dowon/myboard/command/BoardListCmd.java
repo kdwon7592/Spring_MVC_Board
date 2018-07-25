@@ -26,12 +26,22 @@ public class BoardListCmd implements BoardCmd<Model> {
 			
 		// 페이징 쿼리를 위한 변수
 		int currentPage;
-		int maxList = 30;
+		int maxList;
 
 		if (request.getParameter("pages") != null) {
 			currentPage = Integer.parseInt(request.getParameter("pages"));
 		} else {
 			currentPage = 1;
+		}
+		
+		if (request.getParameter("maxList") != null) {
+			maxList = Integer.parseInt(request.getParameter("maxList"));
+		} else {
+			if(request.getSession().getAttribute("maxList") != null) {
+				maxList = (Integer) request.getSession().getAttribute("maxList");
+			}else {
+			maxList = 30;
+			}
 		}
 
 		PagingList pg = new PagingList(currentPage, maxList);
@@ -51,5 +61,6 @@ public class BoardListCmd implements BoardCmd<Model> {
 		//세션에 검색정보를 담아 계속해서 검색정보를 유지한다.
 		request.getSession().setAttribute("opt", opt);
 		request.getSession().setAttribute("cond", condition);
+		request.getSession().setAttribute("maxList", maxList);
 	}
 }

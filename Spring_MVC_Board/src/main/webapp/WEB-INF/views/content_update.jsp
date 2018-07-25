@@ -6,6 +6,8 @@
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
@@ -84,12 +86,13 @@ a, a:hover {
 					<thead>
 						<td>제목</td>
 						<td><input type="text" name="bTitle" value="${update.bTitle}"
-							class="form-control"></td>
+							required class="form-control"></td>
 						<td></td>
 					</thead>
 					<tbody>
 						<td>내용</td>
-						<td><textarea rows="10" name="bContent" class="form-control">${update.bContent}</textarea></td>
+						<td><textarea rows="10" id="bContent" name="bContent"
+								class="form-control">${update.bContent}</textarea></td>
 						<td></td>
 					</tbody>
 					<tr>
@@ -116,6 +119,7 @@ a, a:hover {
 				return false;
 			}
 		}
+		CKEDITOR.replace('bContent', {});
 	</script>
 </body>
 </html>

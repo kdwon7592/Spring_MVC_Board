@@ -90,7 +90,7 @@ public class BoardController {
 		model.addAttribute("request", request);
 		// request 속성을 정해서 "request"에 담아버림. 어차피 컨트롤러에서 작업을 안 하고 서비스와 DAO에서 작업하기 때문
 		// 같이 model에 통째로 넣어버림.
-
+		
 		boardCmd = new BoardWriteCmd();
 		boardCmd.execute(model);
 

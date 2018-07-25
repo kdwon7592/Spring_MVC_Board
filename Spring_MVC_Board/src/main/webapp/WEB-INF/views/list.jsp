@@ -31,11 +31,17 @@ a, a:hover {
 		}
 		String opt = null;
 		String cond = null;
+		int maxList;
 		if (session.getAttribute("opt") != null) {
 			opt = (String) session.getAttribute("opt");
 		}
 		if (session.getAttribute("cond") != null) {
 			cond = (String) session.getAttribute("cond");
+		}
+		if (session.getAttribute("maxList") != null) {
+			maxList = (Integer) session.getAttribute("maxList");
+		} else {
+			maxList = 30;
 		}
 	%>
 	<nav class="navbar navbar-default">
@@ -127,18 +133,19 @@ a, a:hover {
 	<div class="container">
 		<nav>
 			<%
-				System.out.println("test : " + opt + cond);
-				if(opt == null || cond == null){
+				if (opt == null || cond == null) {
 			%>
 			<ul class="pagination">
 				<c:if test="${paging.currentPage > 5 }">
 					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a href="list?pages=${paging.prevPage}"
+					<li><a
+						href="list?pages=${paging.prevPage}&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&lt&lt</a></li>
 				</c:if>
 				<c:if test="${paging.currentPage > 1 }">
 					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a href="list?pages=${paging.currentPage - 1}"
+					<li><a
+						href="list?pages=${paging.currentPage - 1}&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&lt</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${paging.startPage}"
@@ -148,32 +155,36 @@ a, a:hover {
 							<li><a href="#" id="non-click">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="list?pages=${i}">${i}</a></li>
+							<li><a href="list?pages=${i}&maxList=<%=maxList %>">${i}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${paging.currentPage < paging.finalPage}">
-					<li><a href="list?pages=${paging.currentPage + 1}"
+					<li><a
+						href="list?pages=${paging.currentPage + 1}&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&gt</a></li>
 				</c:if>
 				<c:if
 					test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
-					<li><a href="list?pages=${paging.nextPage}"
+					<li><a
+						href="list?pages=${paging.nextPage}&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
 				</c:if>
 			</ul>
 			<%
-				}else {
+				} else {
 			%>
 			<ul class="pagination">
 				<c:if test="${paging.currentPage > 5 }">
 					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a href="list?pages=${paging.prevPage}&opt=<%=opt %>&cond=<%=cond%>"
+					<li><a
+						href="list?pages=${paging.prevPage}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&lt&lt</a></li>
 				</c:if>
 				<c:if test="${paging.currentPage > 1 }">
 					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a href="list?pages=${paging.currentPage - 1}&opt=<%=opt %>&cond=<%=cond%>"
+					<li><a
+						href="list?pages=${paging.currentPage - 1}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&lt</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${paging.startPage}"
@@ -183,17 +194,20 @@ a, a:hover {
 							<li><a href="#" id="non-click">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="list?pages=${i}&opt=<%=opt %>&cond=<%=cond%>">${i}</a></li>
+							<li><a
+								href="list?pages=${i}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>">${i}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${paging.currentPage < paging.finalPage}">
-					<li><a href="list?pages=${paging.currentPage + 1}&opt=<%=opt %>&cond=<%=cond%>"
+					<li><a
+						href="list?pages=${paging.currentPage + 1}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&gt</a></li>
 				</c:if>
 				<c:if
 					test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
-					<li><a href="list?pages=${paging.nextPage}&opt=<%=opt %>&cond=<%=cond%>"
+					<li><a
+						href="list?pages=${paging.nextPage}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
 						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
 				</c:if>
 			</ul>
@@ -204,14 +218,26 @@ a, a:hover {
 	</div>
 
 	<div class="container">
-		<form action="list">
-			<select name="opt">
+		<form action="list" class="form-inline">
+			<select name="opt" class="form-control">
 				<option value="0">제목</option>
 				<option value="1">내용</option>
 				<option value="2">제목+내용</option>
 				<option value="3">작성자</option>
-			</select> <input type="text" size="20" name="cond" />
-			<button type="submit" class="btn btn-success btn-arraw-left">검색</button>
+			</select> <input type="text" size="20" name="cond" class="form-control" />
+			<button type="submit" class="btn btn-success">검색</button>
+		</form>
+	</div>
+	<br />
+	<div class="container">
+		<form action="list" class="form-inline">
+			<select name="maxList" class="form-control">
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="50">50</option>
+			</select>
+			<button type="submit" class="btn btn-success">설정</button>
 		</form>
 	</div>
 </body>
