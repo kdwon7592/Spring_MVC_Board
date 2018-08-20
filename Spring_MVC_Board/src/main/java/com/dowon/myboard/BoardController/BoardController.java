@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +13,10 @@ import com.dowon.myboard.command.BoardCmd;
 import com.dowon.myboard.command.BoardContentCmd;
 import com.dowon.myboard.command.BoardDeleteCmd;
 import com.dowon.myboard.command.BoardListCmd;
+import com.dowon.myboard.command.BoardMainCmd;
 import com.dowon.myboard.command.BoardUpdateActionCmd;
 import com.dowon.myboard.command.BoardUpdateCmd;
 import com.dowon.myboard.command.BoardWriteCmd;
-import com.dowon.myboard.command.JoinActionCmd;
-import com.dowon.myboard.command.LoginActionCmd;
-import com.dowon.myboard.command.UserDeleteCmd;
-import com.dowon.myboard.command.UserUpdateActionCmd;
-import com.dowon.myboard.command.UserUpdateCmd;
 
 /**
  * 게시판 url 정보를 통해 Mapping을 하여 각 view에 뿌려주는 역할을 한다.
@@ -45,6 +40,16 @@ public class BoardController {
 	//
 	// return "test";
 	// }
+	@RequestMapping("/main") // 게시판 전체 글 목록을 보여주는 메인화면.
+	public String main(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+	
+		boardCmd = new BoardMainCmd();
+		boardCmd.execute(model);
+
+		return "main";
+	}
+	
 	@RequestMapping("/list") // 게시판 전체 글 목록을 보여주는 메인화면.
 	public String list(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
@@ -73,7 +78,7 @@ public class BoardController {
 		 * 로그인하지 않을 시 해당 화면은 들어갈 수 없다.
 		 */
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		} else {
 			return "write_view";
 		}
@@ -84,7 +89,7 @@ public class BoardController {
 		// HttpServletRequest를 왜 받냐면 위에서 작성한 write_view를 폼에서 받아야 하기 때문!
 		encodeUTF_8(request);
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -94,13 +99,13 @@ public class BoardController {
 		boardCmd = new BoardWriteCmd();
 		boardCmd.execute(model);
 
-		return "redirect:list";
+		return "redirect:main";
 	}
 
 	@RequestMapping("/delete") // 글을 삭제한다.
 	public String delete(HttpServletRequest request, Model model) {
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -108,7 +113,7 @@ public class BoardController {
 		boardCmd = new BoardDeleteCmd();
 		boardCmd.execute(model);
 
-		return alert(model, "삭제 되었습니다.", "list");
+		return alert(model, "삭제 되었습니다.", "main");
 
 	}
 
@@ -117,7 +122,7 @@ public class BoardController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -133,14 +138,14 @@ public class BoardController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 		model.addAttribute("request", request);
 
 		boardCmd = new BoardUpdateActionCmd();
 		boardCmd.execute(model);
 
-		return alert(model, "수정 되었습니다.", "list");
+		return alert(model, "수정 되었습니다.", "main");
 	}
 
 	@RequestMapping("/alertAndRedirect") // alert 창을 띄운다.

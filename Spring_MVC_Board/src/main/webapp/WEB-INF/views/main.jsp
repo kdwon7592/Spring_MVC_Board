@@ -59,13 +59,13 @@ a, a:hover {
 				<%
 					if (userId == null) {
 				%>
-				<li><a href="main">메인</a></li>
-				<li class="active"><a href="list">게시판</a></li>
+				<li class="active"><a href="main">메인</a></li>
+				<li><a href="list">게시판</a></li>
 				<%
 					} else {
 				%>
-				<li><a href="main">메인</a></li>
-				<li class="active"><a href="list">게시판</a></li>
+				<li class="active"><a href="main">메인</a></li>
+				<li><a href="list">게시판</a></li>
 				<li><a href="write_view">글쓰기</a></li>
 				<%
 					}
@@ -126,96 +126,18 @@ a, a:hover {
 						<td>${dto.bHit}</td>
 					</tr>
 				</c:forEach>
+				<tr style="height: 10px;">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="list">더보기 +</a></td>
+				</tr>
 			</table>
 		</div>
 	</div>
 
-	<div class="container">
-		<nav>
-			<%
-				if (opt == null || cond == null) {
-			%>
-			<ul class="pagination">
-				<c:if test="${paging.currentPage > 5 }">
-					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a
-						href="list?pages=${paging.prevPage}&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&lt&lt</a></li>
-				</c:if>
-				<c:if test="${paging.currentPage > 1 }">
-					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a
-						href="list?pages=${paging.currentPage - 1}&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&lt</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${paging.startPage}"
-					end="${paging.endPage}" step="1">
-					<c:choose>
-						<c:when test="${i eq paging.currentPage}">
-							<li><a href="#" id="non-click">${i}</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="list?pages=${i}&maxList=<%=maxList %>">${i}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${paging.currentPage < paging.finalPage}">
-					<li><a
-						href="list?pages=${paging.currentPage + 1}&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&gt</a></li>
-				</c:if>
-				<c:if
-					test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
-					<li><a
-						href="list?pages=${paging.nextPage}&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
-				</c:if>
-			</ul>
-			<%
-				} else {
-			%>
-			<ul class="pagination">
-				<c:if test="${paging.currentPage > 5 }">
-					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a
-						href="list?pages=${paging.prevPage}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&lt&lt</a></li>
-				</c:if>
-				<c:if test="${paging.currentPage > 1 }">
-					<!-- 이전 클릭시 전 페이지로 이동 -->
-					<li><a
-						href="list?pages=${paging.currentPage - 1}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&lt</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${paging.startPage}"
-					end="${paging.endPage}" step="1">
-					<c:choose>
-						<c:when test="${i eq paging.currentPage}">
-							<li><a href="#" id="non-click">${i}</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a
-								href="list?pages=${i}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>">${i}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${paging.currentPage < paging.finalPage}">
-					<li><a
-						href="list?pages=${paging.currentPage + 1}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&gt</a></li>
-				</c:if>
-				<c:if
-					test="${paging.nextPage < paging.finalPage && paging.nextPage ne 0}">
-					<li><a
-						href="list?pages=${paging.nextPage}&opt=<%=opt %>&cond=<%=cond%>&maxList=<%=maxList %>"
-						class="btn btn-success btn-arraw-left">&gt&gt</a></li>
-				</c:if>
-			</ul>
-			<%
-				}
-			%>
-		</nav>
-	</div>
+	
 
 	<div class="container">
 		<form action="list" class="form-inline">
@@ -229,16 +151,5 @@ a, a:hover {
 		</form>
 	</div>
 	<br />
-	<div class="container">
-		<form action="list" class="form-inline">
-			<select name="maxList" class="form-control">
-				<option value="10">10</option>
-				<option value="20">20</option>
-				<option value="30">30</option>
-				<option value="50">50</option>
-			</select>
-			<button type="submit" class="btn btn-success">설정</button>
-		</form>
-	</div>
 </body>
 </html>

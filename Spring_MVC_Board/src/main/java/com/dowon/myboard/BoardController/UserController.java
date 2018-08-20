@@ -41,7 +41,7 @@ public class UserController {
 	@RequestMapping("/join") // 회원 가입 화면을 보여준다.
 	public String join(HttpServletRequest request, Model model) {
 		if (isLogin(request)) {
-			return alert(model, "Already Login", "list");
+			return alert(model, "Already Login", "main");
 		}
 		return "join";
 	}
@@ -51,7 +51,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (isLogin(request)) {
-			return alert(model, "Already Login", "list");
+			return alert(model, "Already Login", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -72,7 +72,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (isLogin(request)) {
-			return alert(model, "Already Login", "list");
+			return alert(model, "Already Login", "main");
 		}
 
 		return "login";
@@ -83,7 +83,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (isLogin(request)) {
-			return alert(model, "Already Login", "list");
+			return alert(model, "Already Login", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -92,7 +92,7 @@ public class UserController {
 		boardCmd.execute(model);
 
 		if(request.getAttribute("result").equals(1)) {
-			return alert(model, "Login OK!!", "list");
+			return alert(model, "Login OK!!", "main");
 		}else {
 			return alert(model, "정보가 틀립니다.", "login");
 		}
@@ -103,7 +103,7 @@ public class UserController {
 
 		request.getSession().invalidate();
 
-		return alert(model, "LogOut!!", "list");
+		return alert(model, "LogOut!!", "main");
 	}
 
 	@RequestMapping("/user_update") // 회원 정보를 수정한다.
@@ -111,7 +111,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -128,7 +128,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 		
 		model.addAttribute("request", request);
@@ -136,7 +136,7 @@ public class UserController {
 		boardCmd = new UserUpdateActionCmd();
 		boardCmd.execute(model);
 
-		return "redirect:list";
+		return "redirect:main";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/user_delete")
@@ -144,7 +144,7 @@ public class UserController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);

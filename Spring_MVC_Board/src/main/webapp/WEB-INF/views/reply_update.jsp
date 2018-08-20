@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<title>스프링 게시판</title>
+<title>자유로운 게시판</title>
 <style type="text/css">
 a, a:hover {
 	color: #000000;
@@ -33,11 +33,11 @@ a, a:hover {
 			<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 				class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="list">스프링 웹 게시판</a>
+		<a class="navbar-brand" href="main">자유로운 게시판</a>
 	</div>
 	<div class="colapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
-			<li><a href="list">메인</a></li>
+			<li><a href="main">메인</a></li>
 			<li><a href="list">게시판</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
@@ -48,7 +48,7 @@ a, a:hover {
 					<%
 						if (userId == null) {
 					%>
-					<li class="active"><a href='login'>로그인</a></li>
+					<li><a href='login'>로그인</a></li>
 					<li><a href="join">회원가입</a></li>
 
 					<%

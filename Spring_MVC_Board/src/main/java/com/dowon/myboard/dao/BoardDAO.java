@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.dowon.myboard.dto.BoardDTO;
-import com.dowon.myboard.dto.ReplyDTO;
 
 public class BoardDAO {
 
@@ -32,6 +31,47 @@ public class BoardDAO {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList<BoardDTO> MainList() {
+		ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = dataSource.getConnection();
+			String query = "select * from b_board order by bid desc limit 5";
+
+			pstmt = connection.prepareStatement(query);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				int bId = resultSet.getInt("bId");
+				String bName = resultSet.getString("bName");
+				String bTitle = resultSet.getString("bTitle");
+				String bContent = resultSet.getString("bContent");
+				// bContent는 게시판 목록 불러오기에 필요 없다. 추후 수정 필요.
+				int bHit = resultSet.getInt("bHit");
+				Timestamp bDate = resultSet.getTimestamp("bDate");
+
+				BoardDTO dto = new BoardDTO(bId, bName, bTitle, bContent, bHit, bDate);
+				dtos.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dtos;
 	}
 
 	public ArrayList<BoardDTO> list(int offset, int maxList, String opt, String condition) {
@@ -124,7 +164,7 @@ public class BoardDAO {
 		int cnt = 0;
 		try {
 			connection = dataSource.getConnection();
-			
+
 			if (opt == null) {
 				String query = "select count(*) cnt from b_board";
 				pstmt = connection.prepareStatement(query);

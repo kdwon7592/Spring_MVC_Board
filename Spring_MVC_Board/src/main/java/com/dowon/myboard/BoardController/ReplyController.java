@@ -44,7 +44,7 @@ public class ReplyController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 		model.addAttribute("request", request);
 		String bId = request.getParameter("bId"); //댓글을 작성 후 댓글 작성하던 게시글로 다시 돌아가기 위함.
@@ -60,7 +60,7 @@ public class ReplyController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -76,7 +76,7 @@ public class ReplyController {
 		encodeUTF_8(request);
 
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
@@ -92,7 +92,7 @@ public class ReplyController {
 	@RequestMapping("/reply_delete") //댓글을 삭제한다.
 	public String reply_delete(HttpServletRequest request, Model model) {
 		if (!isLogin(request)) {
-			return alert(model, "권한이 없습니다.", "list");
+			return alert(model, "권한이 없습니다.", "main");
 		}
 
 		model.addAttribute("request", request);
