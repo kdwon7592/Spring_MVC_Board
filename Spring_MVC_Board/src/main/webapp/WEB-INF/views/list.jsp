@@ -20,7 +20,7 @@ a, a:hover {
 
 #non-click {
 	background-color: #D8D8D8;
-}
+} 
 </style>
 </head> 
 <body>
