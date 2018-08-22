@@ -22,7 +22,7 @@ a, a:hover {
 	background-color: #D8D8D8;
 }
 </style>
-</head>
+</head> 
 <body>
 	<%
 		String userId = null;
